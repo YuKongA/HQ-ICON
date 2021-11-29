@@ -6,7 +6,6 @@ body{
     margin: 0; 
     padding: 0; 
     font-family: Roboto,Noto,"微软雅黑",sans-serif; 
-    background: #f7f7f7; 
     background-image: url(../media/background.png)
 }
 
@@ -15,7 +14,7 @@ body{
 }
 
 header{
-    background: #f95759; 
+    background: #ff5c5c; 
     margin: 40px; 
     box-shadow: 0 0 10px rgb(0 0 0 / 70%); 
     border-radius: 20px; 
@@ -106,7 +105,7 @@ footer{
     width: 50px; 
     border-top-right-radius: 5px; 
     border-bottom-right-radius: 5px; 
-    background: #28C5F9; 
+    background: #24c1ff; 
     display: -webkit-box; 
     display: -ms-flexbox; 
     display: flex; 
@@ -120,7 +119,7 @@ footer{
 }
 
 .search-button:hover{
-    background: #2475EF
+    background: #1b98ff
 }
 
 .search-icon{
