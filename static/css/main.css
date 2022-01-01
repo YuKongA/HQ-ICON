@@ -77,7 +77,7 @@ header {
     color: #ffffff;
     font-size: 3.8rem;
     font-weight: 500;
-    margin-top: 40px
+    margin-top: 20px
 }
 
 .description {
@@ -98,7 +98,7 @@ header {
     display: flex;
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
     margin-top: 20px;
 }
 
@@ -160,7 +160,7 @@ header {
 }
 
 .options lable {
-    margin: 0 10px
+    margin: 0 4px
 }
 
 @media screen and (max-width: 768px) {
