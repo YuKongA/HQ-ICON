@@ -17,7 +17,7 @@ body {
 header {
     background: #ff5c5c;
     margin: 40px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 70%);
+    box-shadow: 0 0 10px #000000b3;
     border-radius: 20px;
     -webkit-box-align: center;
     -ms-flex-align: center;
@@ -37,7 +37,7 @@ footer {
     position: fixed;
     padding: 0.5em 0;
     z-index: 11;
-    background-color: rgba(255, 255, 255, .7);
+    background-color: #ffffffb3;
 }
 
 .result {
@@ -70,20 +70,25 @@ header {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    max-width: 620px
+    max-width: 720px
 }
 
 .logo {
     color: #ffffff;
-    font-size: 60px;
-    font-weight: 400;
+    font-size: 3.8rem;
+    font-weight: 500;
     margin-top: 40px
 }
 
 .description {
     color: #ffffff;
-    font-size: 24px;
-    margin: 20px 0
+    font-size: 20px
+}
+
+.description1 {
+    color: #ffffff;
+    font-size: 20px;
+    margin: 4px 0 10px
 }
 
 .search {
@@ -91,9 +96,9 @@ header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 40px;
     margin-top: 20px;
 }
 
@@ -132,8 +137,8 @@ header {
 }
 
 .search-icon {
-    height: 36px;
-    width: 32px;
+    height: 30px;
+    width: 30px;
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1
@@ -151,7 +156,7 @@ header {
 
 .options {
     color: #ffffff;
-    margin: 3px 0;
+    margin: 4px 0;
 }
 
 .options lable {
