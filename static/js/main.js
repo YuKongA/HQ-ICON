@@ -2100,8 +2100,11 @@
                         r = t.trackName,
                         o = t.kind,
                         i = this.state.base64,
-                        a = o.startsWith("mac") ? "mac" : "iOS";
-                    return d.default.createElement("div", { className: "result" }, d.default.createElement("a", { href: i, download: r + "-" + a + "-" + n + "x" + n + ".png" }, d.default.createElement("img", { className: "icon", src: i, alt: r })), d.default.createElement("div", { className: "kind" }, a), r)
+                        a = o.startsWith("mac") ? "Mac" : "iOS";
+                    return d.default.createElement("div", { className: "result" },
+                        d.default.createElement("a", { href: i, download: r + "-" + a + "-" + n + "x" + n + ".png" },
+                            d.default.createElement("img", { className: "icon", src: i, alt: r })),
+                        d.default.createElement("div", { className: "kind" }, a), r)
                 }
             }]), t
         }(p.Component);
@@ -2140,13 +2143,13 @@
 
         function a(e) {
             var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "CN",
-                n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 4;
+                n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 20;
             return (0, c.default)("https://itunes.apple.com/search?term=" + encodeURI(e) + "&country=" + t + "&entity=software&limit=" + n).then(function(e) { return e.json() })
         }
 
         function u(e) {
             var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "CN",
-                n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 4;
+                n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 15;
             return (0, c.default)("https://itunes.apple.com/search?term=" + encodeURI(e) + "&country=" + t + "&entity=macSoftware&limit=" + n).then(function(e) { return e.json() })
         }
         Object.defineProperty(t, "__esModule", { value: !0 }), t.expandShortLink = o, t.searchAppById = i, t.searchIosApp = a, t.searchMacApp = u;
