@@ -1900,6 +1900,14 @@
             if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + typeof t);
             e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t)
         }
+
+        function z(e) {
+            var reg = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURIComponent(r[2]);
+            return null;
+        }
+
         Object.defineProperty(t, "__esModule", { value: !0 });
         var s = n(50),
             c = r(s),
@@ -1921,7 +1929,7 @@
             y = r(m);
         n(85);
         var g = function(e) {
-            function t(e) { i(this, t); var n = a(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e)); return n.state = { input: "", results: [], country: "CN", resolution: 512 }, n.search = n.search.bind(n), n }
+            function t(e) { i(this, t); var n = a(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e)); return n.state = { input: z(""), results: [], country: "CN", resolution: 512 }, n.search = n.search.bind(n), n }
             return u(t, e), l(t, [{
                 key: "search",
                 value: function() {
