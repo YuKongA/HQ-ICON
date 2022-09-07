@@ -2002,7 +2002,7 @@
                         d.default.createElement("main", { className: "results" }, r.map(function(e) {
                             return d.default.createElement(h.default, { key: e.trackId, data: e, resolution: i })
                         })),
-                        d.default.createElement("footer", { className: "footer" }, "Copyrights © 2021 - 浙ICP备2021010095号", ))
+                        d.default.createElement("footer", { className: "footer" }, "Copyrights © 2022 - YuKongA", ))
                 }
             }]), t
         }(p.Component);
