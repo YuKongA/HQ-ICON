@@ -1,0 +1,159 @@
+.app {
+  text-align: center;
+  min-height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column
+}
+
+.app,
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+header {
+  background: #ff5c5c;
+  margin: 40px;
+  box-shadow: 0 0 10px #232323;
+  border-radius: 20px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+main {
+  padding-bottom: 30px
+}
+
+footer {
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  padding: 0.5em 0;
+  z-index: 11;
+  background-color: #ffffffb3
+}
+
+.center {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  max-width: 720px
+}
+
+.logo {
+  color: #ffffff;
+  font-size: 3.8rem;
+  font-weight: 500;
+  margin-top: 20px
+}
+
+.description {
+  color: #ffffff;
+  font-size: 20px
+}
+
+.center {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  max-width: 720px
+}
+
+.logo {
+  color: #ffffff;
+  font-size: 3.8rem;
+  font-weight: 500;
+  margin-top: 20px
+}
+
+.description {
+  color: #ffffff;
+  font-size: 20px
+}
+
+.search {
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 45px;
+  margin-top: 20px
+}
+
+.search-input {
+  height: 45px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 0 0 0 10px;
+  border: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 16px
+}
+
+.search-button {
+  height: 45px;
+  width: 50px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: #24c1ff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 0
+}
+
+.search-button:hover {
+  background: #1b98ff
+}
+
+.search-icon {
+  height: 30px;
+  width: 30px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1
+}
+
+.results {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around
+}
+
+.options {
+  color: #ffffff;
+  margin: 4px 0
+}
+
+.options lable {
+  margin: 0 4px
+}
+
+@media screen and (max-width: 768px) {
+  header {
+      margin-top: 5%;
+      margin-left: 5%;
+      margin-right: 5%
+  }
+}
