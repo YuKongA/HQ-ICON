@@ -13,13 +13,14 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input: '',
+            input: getUrlString(''),
             results: [],
             country: 'CN',
             resolution: 1024,
             cut: 'Rounded',
         };
         this.search = this.search.bind(this);
+        if (getUrlString('') != '') this.search()
     }
 
     async search() {
@@ -29,7 +30,6 @@ class App extends Component {
         const itunesReg = /^(http|https):\/\/itunes/;
         const idReg = /\/id(\d+)/i;
         const shortReg = /^(http|https):\/\/appsto/;
-
         try {
             if (shortReg.test(input)) {
                 url = await expandShortLink(input);
@@ -60,7 +60,6 @@ class App extends Component {
                     <div className="center">
                         <div className="logo">HQ ICON</div>
                         <div className="description">从 App Store 获取高清应用图标</div>
-                        <div className="description">Get high quality icons from App Store</div>
                         <div className="options">
                             <lable onClick={() => this.setState({ country: 'CN' })} >
                                 <input name="store" type="radio" checked={country === 'CN'} />
@@ -88,17 +87,17 @@ class App extends Component {
                         <div className="options">
                             <lable onClick={() => this.setState({ cut: 'Rounded' })} >
                                 <input name="cut" type="radio" checked={cut === 'Rounded'} />
-                                圆角矩形 / Rounded rectangle
+                                裁切圆角
                             </lable>
                             <lable onClick={() => this.setState({ cut: 'Original' })} >
                                 <input name="cut" type="radio" checked={cut === 'Original'} />
-                                原图 / Original image
+                                原始图像
                             </lable>
                         </div>
                         <div className="search">
                             <input
                                 className="search-input"
-                                placeholder="iTunes 链接或应用名称 / iTunes url or App name"
+                                placeholder="iTunes 链接或应用名称"
                                 value={input}
                                 onChange={(e) => this.setState({ input: e.target.value })}
                                 onKeyDown={(e) => e.keyCode === 13 ? this.search() : ''}
@@ -126,3 +125,10 @@ class App extends Component {
 }
 
 export default App;
+
+function getUrlString(string) {
+    var reg = new RegExp("(^|&)" + string + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURIComponent(r[2]);
+    return null;
+} 
