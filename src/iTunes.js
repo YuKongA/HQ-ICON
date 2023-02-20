@@ -10,11 +10,9 @@ export function searchAppById(id, country = 'US') {
 }
 
 export function searchIosApp(term, country = 'US', limit = 10) {
-  return fetchJsonp(`https://itunes.apple.com/search?term=${encodeURI(term)}&country=${country}&entity=software&limit=${limit}`)
-    .then(res => res.json())
+  return fetchJsonp(`https://itunes.apple.com/search?term=${encodeURI(term)}&country=${country}&entity=software&limit=${limit}`).then(res => res.json())
 }
 
 export function searchMacApp(term, country = 'US', limit = 10) {
-  return fetchJsonp(`https://itunes.apple.com/search?term=${encodeURI(term)}&country=${country}&entity=macSoftware&limit=${limit}`)
-    .then(res => res.json())
+  return fetchJsonp(`https://itunes.apple.com/search?term=${encodeURI(term)}&country=${country}&entity=macSoftware&limit=${limit}`).then(res => res.json())
 }

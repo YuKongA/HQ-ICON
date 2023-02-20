@@ -16,7 +16,6 @@ class App extends Component {
             input: getUrlString(''),
             results: [],
             country: 'CN',
-            resolution: 1024,
             cut: 'Rounded',
         };
         this.search = this.search.bind(this);
@@ -53,7 +52,7 @@ class App extends Component {
     }
 
     render() {
-        const { input, results, country, resolution, cut } = this.state;
+        const { input, results, country, cut } = this.state;
         return (
             <div className="app">
                 <header>
@@ -61,38 +60,32 @@ class App extends Component {
                         <div className="logo">HQ ICON</div>
                         <div className="description">从 App Store 获取高清应用图标</div>
                         <div className="options">
-                            <lable onClick={() => this.setState({ country: 'CN' })} >
-                                <input name="store" type="radio" checked={country === 'CN'} />
-                                中国 / CN
-                            </lable>
-                            <lable onClick={() => this.setState({ country: 'US' })} >
-                                <input name="store" type="radio" checked={country === 'US'} />
-                                美国 / US
-                            </lable>
-                            <lable onClick={() => this.setState({ country: 'JP' })} >
-                                <input name="store" type="radio" checked={country === 'JP'} />
-                                日本 / JP
-                            </lable>
+                            <label onClick={() => this.setState({ country: 'CN' })} >
+                                <input name="store" type="checkbox" checked={country === 'CN'} />
+                                中/CN
+                            </label>
+                            <label onClick={() => this.setState({ country: 'US' })} >
+                                <input name="store" type="checkbox" checked={country === 'US'} />
+                                美/US
+                            </label>
+                            <label onClick={() => this.setState({ country: 'JP' })} >
+                                <input name="store" type="checkbox" checked={country === 'JP'} />
+                                日/JP
+                            </label>
+                            <label onClick={() => this.setState({ country: 'KR' })} >
+                                <input name="store" type="checkbox" checked={country === 'KR'} />
+                                韩/KR
+                            </label>
                         </div>
                         <div className="options">
-                            <lable onClick={() => this.setState({ resolution: 1024 })} >
-                                <input name="resolution" type="radio" checked={resolution === 1024} />
-                                1024x1024
-                            </lable>
-                            <lable onClick={() => this.setState({ resolution: 512 })} >
-                                <input name="resolution" type="radio" checked={resolution === 512} />
-                                512x512
-                            </lable>
-                        </div>
-                        <div className="options">
-                            <lable onClick={() => this.setState({ cut: 'Rounded' })} >
-                                <input name="cut" type="radio" checked={cut === 'Rounded'} />
+                            <label onClick={() => this.setState({ cut: 'Rounded' })} >
+                                <input name="cut" type="checkbox" checked={cut === 'Rounded'} />
                                 裁切圆角
-                            </lable>
-                            <lable onClick={() => this.setState({ cut: 'Original' })} >
-                                <input name="cut" type="radio" checked={cut === 'Original'} />
+                            </label>
+                            <label onClick={() => this.setState({ cut: 'Original' })} >
+                                <input name="cut" type="checkbox" checked={cut === 'Original'} />
                                 原始图像
-                            </lable>
+                            </label>
                         </div>
                         <div className="search">
                             <input
@@ -113,7 +106,6 @@ class App extends Component {
                         <Result
                             key={result.trackId}
                             data={result}
-                            resolution={resolution}
                             cut={cut}
                         />
                     ))}
@@ -131,4 +123,4 @@ function getUrlString(string) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return decodeURIComponent(r[2]);
     return null;
-} 
+}

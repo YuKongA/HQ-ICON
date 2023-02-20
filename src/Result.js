@@ -10,36 +10,33 @@ class Result extends Component {
     }
 
     async componentDidMount() {
-        const { data, resolution, cut } = this.props;
-        const base64 = await drawOutline(data, resolution, cut);
+        const { data, cut } = this.props;
+        const base64 = await drawOutline(data, cut);
         this.setState({ base64 });
+
     }
 
     async componentWillReceiveProps(nextProps) {
-        if (nextProps.resolution !== this.props.resolution) {
-            const { data, resolution, cut } = nextProps;
-            const base64 = await drawOutline(data, resolution, cut);
-            this.setState({ base64 });
-        }
         if (nextProps.cut !== this.props.cut) {
-            const { data, resolution, cut } = nextProps;
-            const base64 = await drawOutline(data, resolution, cut);
+            const { data, cut } = nextProps;
+            const base64 = await drawOutline(data, cut);
             this.setState({ base64 });
         }
     }
 
     render() {
-        const { data, resolution, cut } = this.props;
-        const { trackName, kind } = data;
+        const { data } = this.props;
+        const { trackName, kind, primaryGenreName, artistName, trackViewUrl, artistViewUrl } = data;
         const { base64 } = this.state;
         const platform = kind.startsWith('mac') ? 'Mac' : 'iOS';
         return (
             <div className="result">
-                <a href={base64} download={`${trackName}-${platform}-${resolution}x${resolution}x${cut}.png`}>
+                <a href={base64} download={`${trackName}-${platform}-512x512.png`}>
                     <img className="icon" src={base64} alt={trackName} />
                 </a>
-                <div className="kind">{platform}</div>
-                {trackName}
+                <div className="platform">{platform} - {primaryGenreName}</div>
+                <div className="trackName"><a href={trackViewUrl}>{trackName}</a></div>
+                <div className="artistName"><a href={artistViewUrl}>{artistName}</a></div>
             </div>
         );
     }

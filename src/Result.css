@@ -1,9 +1,41 @@
 .result {
   width: 256px;
-  margin: 20px
+  margin: 20px;
 }
 
 .icon {
   height: 256px;
-  width: 256px
+  width: 256px;
+}
+
+.platform {
+  font-size: 0.7rem;
+}
+
+.trackName {
+  font-size: 1rem;
+}
+
+.artistName {
+  font-size: 0.8rem;
+}
+
+a:link {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #6ee48d;
+}
+
+a:active {
+  text-decoration: none;
+  color: #ffcc7a;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #ff8383;
 }

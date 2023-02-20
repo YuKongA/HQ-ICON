@@ -4,27 +4,27 @@
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .app,
 header {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex
+  display: flex;
 }
 
 header {
-  background: #ff5c5c;
+  background-image: linear-gradient(135deg, #9cc8f8 0%, #fa8ce4 100%);
   margin: 40px;
-  box-shadow: 0 0 10px #232323;
+  box-shadow: 0 0 10px #888888;
   border-radius: 20px;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center
+  justify-content: center;
 }
 
 main {
@@ -37,45 +37,97 @@ footer {
   position: fixed;
   padding: 0.5em 0;
   z-index: 11;
-  background-color: #ffffffb3
+  background-color: #ffffffb3;
+}
+
+input::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #b8b8b8;
+}
+
+input:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #b8b8b8;
+}
+
+input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #b8b8b8;
+  opacity: 1;
+}
+
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #b8b8b8;
+  opacity: 1;
 }
 
 .center {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  max-width: 720px
+  max-width: 720px;
 }
 
 .logo {
-  color: #ffffff;
+  color: white;
   font-size: 3.8rem;
-  font-weight: 500;
-  margin-top: 20px
+  font-weight: 700;
+  margin-top: 15px;
 }
 
 .description {
-  color: #ffffff;
-  font-size: 20px
+  color: white;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .center {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  max-width: 720px
+  max-width: 720px;
 }
 
-.logo {
-  color: #ffffff;
-  font-size: 3.8rem;
-  font-weight: 500;
-  margin-top: 20px
+.options {
+  color: white;
+  margin: 4px 0;
 }
 
-.description {
-  color: #ffffff;
-  font-size: 20px
+.options label {
+  margin: 0 8px
+}
+
+label {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.options input[type=checkbox] {
+  position: relative;
+  width: 15px;
+  height: 13.6px;
+  margin-right: 5px;
+}
+
+.options input[type=checkbox]::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  line-height: 15.5px;
+  text-align: center;
+  font-size: 15px;
+  background-color: white;
+  border-radius: 2.5px;
+}
+
+.options input[type=checkbox]:checked::before {
+  color: white;
+  background-color: #00ff84;
+  width: 13px;
+  height: 13px;
+  border: solid 1px black;
 }
 
 .search {
@@ -85,8 +137,8 @@ footer {
   display: flex;
   margin-left: 10%;
   margin-right: 10%;
-  margin-bottom: 45px;
-  margin-top: 20px
+  margin-bottom: 40px;
+  margin-top: 20px;
 }
 
 .search-input {
@@ -96,17 +148,17 @@ footer {
   flex: 1;
   padding: 0 0 0 10px;
   border: 0;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  font-size: 16px
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  font-size: 16px;
 }
 
 .search-button {
   height: 45px;
-  width: 50px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background: #24c1ff;
+  width: 48px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: #4fc4ff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -116,11 +168,12 @@ footer {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  border: 0
+  border: 0;
+  transition: background-color 0.35s;
 }
 
 .search-button:hover {
-  background: #1b98ff
+  background: #2a7efb;
 }
 
 .search-icon {
@@ -128,7 +181,7 @@ footer {
   width: 30px;
   -webkit-box-flex: 1;
   -ms-flex: 1;
-  flex: 1
+  flex: 1;
 }
 
 .results {
@@ -138,22 +191,17 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -ms-flex-pack: distribute;
-  justify-content: space-around
-}
-
-.options {
-  color: #ffffff;
-  margin: 4px 0
-}
-
-.options lable {
-  margin: 0 4px
+  justify-content: space-around;
 }
 
 @media screen and (max-width: 768px) {
   header {
-      margin-top: 5%;
-      margin-left: 5%;
-      margin-right: 5%
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .options label {
+    margin: 0 4px;
   }
 }
