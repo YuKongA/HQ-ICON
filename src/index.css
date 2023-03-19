@@ -6,13 +6,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "MiSans", sans-serif;
+  font-family: 'Misans';
   background-image: url(./background.png);
-}
-
-@font-face {
-  font-family: "MiSans";
-  src: url("./MiSans.woff2");
 }
 
 #root {
