@@ -183,4 +183,7 @@ yarn.lock
 # dependencies
 /node_modules
 
+# production
+/build
+
 # End of https://www.toptal.com/developers/gitignore/api/yarn,windows,linux,macos,visualstudiocode
