@@ -12,18 +12,23 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
+        
+        if (getUrlString('c') != "") { var c = getUrlString('c') } else var c = 'CN';
+        if (getUrlString('l') != "") { var l = getUrlString('l') } else var l = 5;
+        if (getUrlString('r') != "") { var r = getUrlString('r') } else var r = '1';
         this.state = {
-            input: getUrlString(''),
+            input: getUrlString('n'),
             results: [],
-            country: 'CN',
-            cut: 'Rounded',
+            country: c,
+            limit: l,
+            cut: r,
         };
         this.search = this.search.bind(this);
-        if (getUrlString('') != '') this.search()
+        if (getUrlString('n') != null) this.search()
     }
 
     async search() {
-        let { input, country } = this.state;
+        let { input, country, limit } = this.state;
         input = input.trim();
         let url = input;
         const itunesReg = /^(http|https):\/\/itunes/;
@@ -39,8 +44,8 @@ class App extends Component {
                 this.setState({ results: data.results });
             } else {
                 const data = await Promise.all([
-                    searchIosApp(input, country),
-                    searchMacApp(input, country),
+                    searchIosApp(input, country, limit),
+                    searchMacApp(input, country, limit),
                 ]);
                 this.setState({
                     results: data[0].results.concat(data[1].results),
@@ -52,7 +57,7 @@ class App extends Component {
     }
 
     render() {
-        const { input, results, country, cut } = this.state;
+        const { input, results, country, limit, cut } = this.state;
         return (
             <div className="app">
                 <header>
@@ -78,13 +83,13 @@ class App extends Component {
                             </label>
                         </div>
                         <div className="options">
-                            <label onClick={() => this.setState({ cut: 'Rounded' })} >
-                                <input name="cut" type="checkbox" checked={cut === 'Rounded'} />
-                                裁切圆角
+                            <label onClick={() => this.setState({ cut: '1' })} >
+                                <input name="cut" type="checkbox" checked={cut === '1'} />
+                                裁切圆角矩形
                             </label>
-                            <label onClick={() => this.setState({ cut: 'Original' })} >
-                                <input name="cut" type="checkbox" checked={cut === 'Original'} />
-                                原始图像
+                            <label onClick={() => this.setState({ cut: '0' })} >
+                                <input name="cut" type="checkbox" checked={cut === '0'} />
+                               应用原始图像
                             </label>
                         </div>
                         <div className="search">
@@ -119,8 +124,12 @@ class App extends Component {
 export default App;
 
 function getUrlString(string) {
-    var reg = new RegExp("(^|&)" + string + "=([^&]*)(&|$)");
+    var reg = new RegExp("(^|&)" + string + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return decodeURIComponent(r[2]);
-    return null;
+    var context = "";
+    if (r != null)
+        context = decodeURIComponent(r[2]);
+    reg = null;
+    r = null;
+    return context == null || context == "" || context == "undefined" ? "" : context;
 }

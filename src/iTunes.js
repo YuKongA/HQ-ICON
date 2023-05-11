@@ -5,14 +5,14 @@ export async function expandShortLink(url) {
   return res.url
 }
 
-export function searchAppById(id, country = 'US') {
+export function searchAppById(id, country) {
   return fetchJsonp(`https://itunes.apple.com/lookup?id=${id}&country=${country}`).then(res => res.json())
 }
 
-export function searchIosApp(term, country = 'US', limit = 10) {
+export function searchIosApp(term, country, limit) {
   return fetchJsonp(`https://itunes.apple.com/search?term=${encodeURI(term)}&country=${country}&entity=software&limit=${limit}`).then(res => res.json())
 }
 
-export function searchMacApp(term, country = 'US', limit = 10) {
+export function searchMacApp(term, country, limit) {
   return fetchJsonp(`https://itunes.apple.com/search?term=${encodeURI(term)}&country=${country}&entity=macSoftware&limit=${limit}`).then(res => res.json())
 }
