@@ -12,23 +12,22 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        
-        if (getUrlString('c') != "") { var c = getUrlString('c') } else var c = 'CN';
-        if (getUrlString('l') != "") { var l = getUrlString('l') } else var l = 5;
-        if (getUrlString('r') != "") { var r = getUrlString('r') } else var r = '1';
+        if (getUrlArgs('c') != "") { var c = getUrlArgs('c') } else var c = 'CN';
+        if (getUrlArgs('l') != "") { var l = getUrlArgs('l') } else var l = 10;
+        if (getUrlArgs('r') != "") { var r = getUrlArgs('r') } else var r = '1';
         this.state = {
-            input: getUrlString('n'),
+            input: getUrlArgs('n'),
             results: [],
             country: c,
             limit: l,
             cut: r,
         };
         this.search = this.search.bind(this);
-        if (getUrlString('n') != null) this.search()
+        if (getUrlArgs('n') != null) this.search();
     }
 
     async search() {
-        let { input, country, limit } = this.state;
+        let { input, country, limit, cut } = this.state;
         input = input.trim();
         let url = input;
         const itunesReg = /^(http|https):\/\/itunes/;
@@ -58,6 +57,12 @@ class App extends Component {
 
     render() {
         const { input, results, country, limit, cut } = this.state;
+        if (input != '') {
+            history.replaceState(null, null, changeUrlArgs('n', input));
+            history.replaceState(null, null, changeUrlArgs('c', country));
+            history.replaceState(null, null, changeUrlArgs('r', cut));
+            history.replaceState(null, null, changeUrlArgs('l', limit));
+        }
         return (
             <div className="app">
                 <header>
@@ -89,7 +94,7 @@ class App extends Component {
                             </label>
                             <label onClick={() => this.setState({ cut: '0' })} >
                                 <input name="cut" type="checkbox" checked={cut === '0'} />
-                               应用原始图像
+                                应用原始图像
                             </label>
                         </div>
                         <div className="search">
@@ -123,7 +128,7 @@ class App extends Component {
 
 export default App;
 
-function getUrlString(string) {
+function getUrlArgs(string) {
     var reg = new RegExp("(^|&)" + string + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
     var context = "";
@@ -132,4 +137,21 @@ function getUrlString(string) {
     reg = null;
     r = null;
     return context == null || context == "" || context == "undefined" ? "" : context;
+}
+
+function changeUrlArgs(arg, arg_val) {
+    var pattern = arg + '=([^&]*)';
+    var replaceText = arg + '=' + arg_val;
+    var url = window.location.href;
+    if (url.match(pattern)) {
+        var tmp = '/(' + arg + '=)([^&]*)/gi';
+        tmp = url.replace(eval(tmp), replaceText);
+        return tmp;
+    } else {
+        if (url.match('[\?]')) {
+            return url + '&' + replaceText;
+        } else {
+            return url + '?' + replaceText;
+        }
+    }
 }
