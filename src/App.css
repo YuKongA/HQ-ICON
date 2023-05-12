@@ -18,7 +18,7 @@ header {
 }
 
 main {
-  padding-bottom: 30px
+  padding-bottom: 30px;
 }
 
 footer {
@@ -26,8 +26,8 @@ footer {
   bottom: 0;
   position: fixed;
   padding: 0.5em 0;
-  z-index: 11;
   background-color: #ffffffb3;
+  z-index: 11;
 }
 
 input::-webkit-input-placeholder {
@@ -130,21 +130,24 @@ label {
   height: 45px;
   width: 20px;
   flex: 1;
-  padding: 0 0 0 10px;
+  padding: 0 10px;
   border: 0;
   border-top-left-radius: 8px;
+  border-top-right-radius: 0px;
   border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 0px;
   font-size: 15px;
+  outline: none;
 }
 
 .search-button {
   height: 45px;
   width: 48px;
+  display: flex;
   border: 0;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   background: #22b5ff;
-  display: flex;
   align-items: center;
   transition: background-color 0.35s;
 }

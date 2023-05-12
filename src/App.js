@@ -25,7 +25,7 @@ class App extends Component {
             results: [],
         };
         this.search = this.search.bind(this);
-        if (getUrlArgs('n') != null) this.search();
+        if (getUrlArgs('name') != null) this.search();
     }
 
     async search() {
@@ -132,7 +132,7 @@ class App extends Component {
                                 placeholder="iTunes 链接或应用名称"
                                 value={input}
                                 onChange={(e) => this.setState({ input: e.target.value })}
-                                onKeyDown={(e) => e.keyCode === 13 ? this.search() : ''}
+                                onKeyDown={(e) => e.key == 'Enter' ? this.search() : ''}
                             />
                             <div className="search-button" onClick={this.search} >
                                 <img src={search} className="search-icon" alt="search" />
@@ -159,7 +159,7 @@ export default App;
 
 function getUrlArgs(string) {
     var reg = new RegExp("(^|&)" + string + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
+    var r = window.location.search.substring(1).match(reg);
     var context = "";
     if (r != null)
         context = decodeURIComponent(r[2]);
