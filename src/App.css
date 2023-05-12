@@ -1,16 +1,11 @@
 .app {
   text-align: center;
   min-height: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .app,
 header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -19,11 +14,6 @@ header {
   margin: 40px;
   box-shadow: 0 0 10px #888888;
   border-radius: 20px;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -63,8 +53,6 @@ input::-moz-placeholder {
 }
 
 .center {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   max-width: 720px;
 }
@@ -83,8 +71,6 @@ input::-moz-placeholder {
 }
 
 .center {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   max-width: 720px;
 }
@@ -104,9 +90,8 @@ label {
 }
 
 .options input[type=checkbox] {
-  position: relative;
   width: 15px;
-  height: 13.6px;
+  height: 15px;
   margin-right: 5px;
 }
 
@@ -115,60 +100,52 @@ label {
   position: absolute;
   width: 15px;
   height: 15px;
-  line-height: 15.5px;
   text-align: center;
   font-size: 15px;
   background-color: white;
-  border-radius: 2.5px;
+  border-radius: 2.8px;
 }
 
 .options input[type=checkbox]:checked::before {
-  color: white;
+  position: absolute;
   background-color: #00ff84;
   width: 13px;
   height: 13px;
+  text-align: center;
+  font-size: 15px;
   border: solid 1px black;
+  border-radius: 2.8px;
 }
 
 .search {
-  height: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  height: 45px;
   display: flex;
   margin-left: 10%;
   margin-right: 10%;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
   margin-top: 20px;
 }
 
 .search-input {
   height: 45px;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
+  width: 20px;
   flex: 1;
   padding: 0 0 0 10px;
   border: 0;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .search-button {
   height: 45px;
   width: 48px;
+  border: 0;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  background: #4fc4ff;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  background: #22b5ff;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border: 0;
   transition: background-color 0.35s;
 }
 
@@ -179,18 +156,12 @@ label {
 .search-icon {
   height: 30px;
   width: 30px;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
 }
 
 .results {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -ms-flex-pack: distribute;
   justify-content: space-around;
 }
 
@@ -199,6 +170,25 @@ label {
     margin-top: 5%;
     margin-left: 5%;
     margin-right: 5%;
+  }
+
+  .options label {
+    margin: 0 4px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  header {
+    margin-top: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+    border-radius: 0px;
+  }
+
+  .search {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 30px;
   }
 
   .options label {
