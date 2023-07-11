@@ -91,7 +91,7 @@ label {
 
 .options input[type=checkbox] {
   width: 15px;
-  height: 15px;
+  height: 13.6px;
   margin-right: 5px;
 }
 
@@ -115,6 +115,23 @@ label {
   font-size: 15px;
   border: solid 1px black;
   border-radius: 2.8px;
+}
+
+@supports(-webkit-touch-callout: none) {
+  .options input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+  }
+
+  .options input[type=checkbox]::before {
+    width: 16px;
+    height: 16px;
+  }
+
+  .options input[type=checkbox]:checked::before {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .search {

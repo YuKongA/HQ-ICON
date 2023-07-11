@@ -25,27 +25,27 @@ class App extends Component {
     }
 
     async search() {
-        let { name, country, entity, limit } = this.state;
+        let { name, country, entity, limit, cut } = this.state;
         name = name.trim();
         try {
             const data = await Promise.all([searchApp(name, country, entity, limit)]);
-            this.setState({
-                results: data[0].results,
-            });
+            this.setState({ results: data[0].results, doCut: cut });
         } catch (err) {
             console.error(err);
         }
-    }
-
-    render() {
-        const { name, country, entity, cut, limit, results } = this.state;
         if (name != '') {
             history.replaceState(null, null, changeUrlArgs('name', name));
             history.replaceState(null, null, changeUrlArgs('country', country));
             history.replaceState(null, null, changeUrlArgs('entity', entity));
             history.replaceState(null, null, changeUrlArgs('limit', limit));
             history.replaceState(null, null, changeUrlArgs('cut', cut));
+        } else {
+            history.replaceState(null, null, window.location.origin);
         }
+    }
+
+    render() {
+        const { name, country, entity, cut, results, doCut } = this.state;
         return (
             <div className="app">
                 <header>
@@ -95,7 +95,7 @@ class App extends Component {
                                 className="search-input"
                                 placeholder="应用名称"
                                 value={name}
-                                onChange={(e) => this.setState({ name: e.target.value })}
+                                onChange={(e) => this.setState({ name: e.target.value.trim() })}
                                 onKeyDown={(e) => e.key == 'Enter' ? this.search() : ''} />
                             <div className="search-button" onClick={this.search} >
                                 <img src={search} className="search-icon" alt="search" />
@@ -108,7 +108,7 @@ class App extends Component {
                         <Result
                             key={result.trackId}
                             data={result}
-                            cut={cut}
+                            cut={doCut}
                         />
                     ))}
                 </main>
