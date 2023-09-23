@@ -20,22 +20,22 @@
   font-size: 0.8rem;
 }
 
-a:link {
+a {
   text-decoration: none;
+}
+
+a:link {
   color: #000000;
 }
 
 a:hover {
-  text-decoration: none;
   color: #6ee48d;
 }
 
 a:active {
-  text-decoration: none;
   color: #ffcc7a;
 }
 
 a:visited {
-  text-decoration: none;
   color: #ff8383;
 }

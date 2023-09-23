@@ -22,12 +22,20 @@ main {
 }
 
 footer {
-  width: 100%;
-  bottom: 0;
   position: fixed;
-  padding: 0.5em 0;
-  background-color: #ffffffb3;
-  z-index: 11;
+  bottom: 8px;
+  left: calc(50vw - 130px);
+  right: calc(50vw - 130px);
+  background-color: rgb(0, 0, 0, 0.15);
+  color: #ffffff;
+  padding: 5px;
+  transition: all 0.5s ease-out;
+  border-radius: 10px;
+  transition: background-color 0.35s;
+}
+
+footer:hover {
+  background-color: rgb(0, 0, 0, 0.75);
 }
 
 input::-webkit-input-placeholder {
