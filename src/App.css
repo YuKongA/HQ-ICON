@@ -59,14 +59,14 @@ input::-moz-placeholder {
 
 .logo {
   color: white;
-  font-size: 3.8rem;
+  font-size: 3.9rem;
   font-weight: 700;
   margin-top: 15px;
 }
 
 .description {
   color: white;
-  font-size: 20px;
+  font-size: 1.26rem;
   margin-bottom: 10px;
 }
 
@@ -101,7 +101,6 @@ label {
   width: 15px;
   height: 15px;
   text-align: center;
-  font-size: 15px;
   background-color: white;
   border-radius: 2.8px;
 }
@@ -112,7 +111,6 @@ label {
   width: 13px;
   height: 13px;
   text-align: center;
-  font-size: 15px;
   border: solid 1px black;
   border-radius: 2.8px;
 }
@@ -153,7 +151,7 @@ label {
   border-top-right-radius: 0px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 0px;
-  font-size: 15px;
+  font-size: 1rem;
   outline: none;
 }
 
