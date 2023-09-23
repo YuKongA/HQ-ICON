@@ -9,10 +9,9 @@ export function getUrlArgs(string) {
     return context == null || context == "" || context == "undefined" ? "" : context;
 }
 
-export function changeUrlArgs(arg, arg_val) {
+export function changeUrlArgs(url, arg, arg_val) {
     var pattern = arg + '=([^&]*)';
     var replaceText = arg + '=' + arg_val;
-    var url = window.location.href;
     if (url.match(pattern)) {
         var tmp = '/(' + arg + '=)([^&]*)/gi';
         tmp = url.replace(eval(tmp), replaceText);

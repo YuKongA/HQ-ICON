@@ -34,11 +34,13 @@ class App extends Component {
             console.error(err);
         }
         if (name != '') {
-            history.replaceState(null, null, changeUrlArgs('name', name));
-            history.replaceState(null, null, changeUrlArgs('country', country));
-            history.replaceState(null, null, changeUrlArgs('entity', entity));
-            history.replaceState(null, null, changeUrlArgs('limit', limit));
-            history.replaceState(null, null, changeUrlArgs('cut', cut));
+            var url = window.location.href;
+            var newUrl= changeUrlArgs(url, 'name', name);
+            newUrl = changeUrlArgs(newUrl, 'country', country);
+            newUrl = changeUrlArgs(newUrl, 'entity', entity);
+            newUrl = changeUrlArgs(newUrl, 'limit', limit);
+            newUrl = changeUrlArgs(newUrl, 'cut', cut);
+            history.replaceState(null, null, newUrl);
         } else {
             history.replaceState(null, null, window.location.origin);
         }
