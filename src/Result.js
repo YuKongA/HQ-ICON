@@ -13,7 +13,6 @@ class Result extends Component {
         const { data, cut } = this.props;
         const base64 = await drawOutline(data, cut);
         this.setState({ base64 });
-
     }
 
     async componentWillReceiveProps(nextProps) {
@@ -31,12 +30,10 @@ class Result extends Component {
         const platform = kind.startsWith('mac') ? 'Mac' : 'iOS';
         return (
             <div className="result">
-                <a href={base64} download={`${trackName}-${platform}-512x512.png`}>
-                    <img className="icon" src={base64} alt={trackName} />
-                </a>
-                <div className="platform">{platform} - {primaryGenreName}</div>
-                <div className="trackName"><a href={trackViewUrl}>{trackName}</a></div>
-                <div className="artistName"><a href={artistViewUrl}>{artistName}</a></div>
+                <a href={base64} download={`${trackName}-${platform}-512x512.png`}><img className="icon" src={base64} alt={trackName} /></a>
+                <div className="icon-trackName"><a className="icon-info" href={trackViewUrl}>{trackName}</a></div>
+                <div className="icon-artistName"><a className="icon-info" href={artistViewUrl}>{artistName}</a></div>
+                <div className="icon-platform">{platform} - {primaryGenreName}</div>
             </div>
         );
     }

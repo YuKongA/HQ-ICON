@@ -8,34 +8,41 @@
   width: 256px;
 }
 
-.platform {
+.icon-trackName {
+  font-size: 1.1rem;
+}
+
+.icon-platform {
   font-size: 0.7rem;
 }
 
-.trackName {
-  font-size: 1rem;
-}
-
-.artistName {
+.icon-artistName {
   font-size: 0.8rem;
 }
 
-a {
-  text-decoration: none;
-}
-
-a:link {
+a.icon-info:link {
   color: #000000;
 }
 
-a:hover {
+a.icon-info:visited {
+  color: #000000;
+}
+
+a.icon-info:hover {
   color: #6ee48d;
 }
 
-a:active {
+a.icon-info:active {
   color: #ffcc7a;
 }
 
-a:visited {
-  color: #ff8383;
+@media screen and (max-width: 650px) {
+  .result {
+    width: 100vw;
+  }
+
+  .icon {
+    height: 75vw;
+    width: 75vw;
+  }
 }

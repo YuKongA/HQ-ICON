@@ -9,6 +9,10 @@ header {
   display: flex;
 }
 
+a {
+  text-decoration: none;
+}
+
 header {
   background-image: linear-gradient(135deg, #9cc8f8 0%, #fa8ce4 100%);
   margin: 40px;
@@ -27,15 +31,30 @@ footer {
   left: calc(50vw - 130px);
   right: calc(50vw - 130px);
   background-color: rgb(0, 0, 0, 0.15);
-  color: #ffffff;
+  color: #fff;
   padding: 5px;
-  transition: all 0.5s ease-out;
   border-radius: 10px;
   transition: background-color 0.35s;
 }
 
 footer:hover {
   background-color: rgb(0, 0, 0, 0.75);
+}
+
+a.footer-msg {
+  color: #fff;
+}
+
+a.footer-msg:visited {
+  color: #fff;
+}
+
+a.footer-msg:hover {
+  color: #6ee48d;
+}
+
+a.footer-msg:active {
+  color: #ffcc7a;
 }
 
 input::-webkit-input-placeholder {
@@ -203,7 +222,7 @@ label {
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 380px) {
   header {
     margin-top: 0%;
     margin-left: 0%;

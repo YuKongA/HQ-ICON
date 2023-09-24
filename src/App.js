@@ -35,7 +35,7 @@ class App extends Component {
         }
         if (name != '') {
             var url = window.location.href;
-            var newUrl= changeUrlArgs(url, 'name', name);
+            var newUrl = changeUrlArgs(url, 'name', name);
             newUrl = changeUrlArgs(newUrl, 'country', country);
             newUrl = changeUrlArgs(newUrl, 'entity', entity);
             newUrl = changeUrlArgs(newUrl, 'limit', limit);
@@ -106,15 +106,9 @@ class App extends Component {
                     </div>
                 </header>
                 <main className="results">
-                    {results.map((result) => (
-                        <Result
-                            key={result.trackId}
-                            data={result}
-                            cut={doCut}
-                        />
-                    ))}
+                    {results.map((result) => (<Result key={result.trackId} data={result} cut={doCut} />))}
                 </main>
-                <footer className="footer">Copyrights © 2023 - YuKongA</footer>
+                <footer className="footer">Copyrights © 2023 - <a className="footer-msg" href='https://github.com/YuKongA'>YuKongA</a></footer>
             </div>
         );
     }
