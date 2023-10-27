@@ -8,16 +8,20 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        if (getUrlArgs('country') != "") { var c = getUrlArgs('country') } else var c = 'cn';
-        if (getUrlArgs('entity') != "") { var d = getUrlArgs('entity') } else var d = 'software';
-        if (getUrlArgs('cut') != "") { var r = getUrlArgs('cut') } else var r = '1';
-        if (getUrlArgs('limit') != "") { var l = getUrlArgs('limit') } else var l = 10;
+        if (getUrlArgs('country') != "") { var a = getUrlArgs('country') } else var a = 'cn';
+        if (getUrlArgs('entity') != "") { var b = getUrlArgs('entity') } else var b = 'software';
+        if (getUrlArgs('limit') != "") { var c = getUrlArgs('limit') } else var c = '10';
+        if (getUrlArgs('cut') != "") { var d = getUrlArgs('cut') } else var d = '1';
+        if (getUrlArgs('resolution') != "") { var e = getUrlArgs('resolution') } else var e = '512';
+        if (getUrlArgs('format') != "") { var f = getUrlArgs('format') } else var f = 'png';
         this.state = {
             name: getUrlArgs('name'),
-            country: c,
-            entity: d,
-            limit: l,
-            cut: r,
+            country: a,
+            entity: b,
+            limit: c,
+            cut: d,
+            resolution: e,
+            format: f,
             results: [],
         };
         this.search = this.search.bind(this);
@@ -25,11 +29,11 @@ class App extends Component {
     }
 
     async search() {
-        let { name, country, entity, limit, cut } = this.state;
+        let { name, country, entity, limit, cut, resolution, format } = this.state;
         name = name.trim();
         try {
             const data = await Promise.all([searchApp(name, country, entity, limit)]);
-            this.setState({ results: data[0].results, doCut: cut });
+            this.setState({ results: data[0].results, cut: cut, resolution: resolution, format: format });
         } catch (err) {
             console.error(err);
         }
@@ -40,6 +44,8 @@ class App extends Component {
             newUrl = changeUrlArgs(newUrl, 'entity', entity);
             newUrl = changeUrlArgs(newUrl, 'limit', limit);
             newUrl = changeUrlArgs(newUrl, 'cut', cut);
+            newUrl = changeUrlArgs(newUrl, 'resolution', resolution);
+            newUrl = changeUrlArgs(newUrl, 'format', format);
             history.replaceState(null, null, newUrl);
         } else {
             history.replaceState(null, null, window.location.origin);
@@ -47,7 +53,7 @@ class App extends Component {
     }
 
     render() {
-        const { name, country, entity, cut, results, doCut } = this.state;
+        const { name, country, entity, cut, resolution, format, results } = this.state;
         return (
             <div className="app">
                 <header>
@@ -62,16 +68,6 @@ class App extends Component {
                             <label onClick={() => this.setState({ entity: 'macSoftware' })} >
                                 <input name="entity" type="checkbox" checked={entity === 'macSoftware'} />
                                 MacOS
-                            </label>
-                        </div>
-                        <div className="options">
-                            <label onClick={() => this.setState({ cut: '1' })} >
-                                <input name="cut" type="checkbox" checked={cut === '1'} />
-                                裁切圆角
-                            </label>
-                            <label onClick={() => this.setState({ cut: '0' })} >
-                                <input name="cut" type="checkbox" checked={cut === '0'} />
-                                原始图像
                             </label>
                         </div>
                         <div className="options">
@@ -103,10 +99,48 @@ class App extends Component {
                                 <img src={search} className="search-icon" alt="search" />
                             </div>
                         </div>
+                        <div className="options">
+                            <label onClick={() => this.setState({ cut: '1' })} >
+                                <input name="cut" type="checkbox" checked={cut === '1'} />
+                                裁切圆角
+                            </label>
+                            <label onClick={() => this.setState({ cut: '0' })} >
+                                <input name="cut" type="checkbox" checked={cut === '0'} />
+                                原始图像
+                            </label>
+                        </div>
+                        <div className="options">
+                            <label onClick={() => this.setState({ format: 'jpg' })} >
+                                <input name="format" type="checkbox" checked={format === 'jpg'} />
+                                JPG
+                            </label>
+                            <label onClick={() => this.setState({ format: 'png' })} >
+                                <input name="format" type="checkbox" checked={format === 'png'} />
+                                PNG
+                            </label>
+                            <label onClick={() => this.setState({ format: 'webp' })} >
+                                <input name="format" type="checkbox" checked={format === 'webp'} />
+                                WEBP
+                            </label>
+                        </div>
+                        <div className="options">
+                            <label onClick={() => this.setState({ resolution: '256' })} >
+                                <input name="resolution" type="checkbox" checked={resolution === '256'} />
+                                256px
+                            </label>
+                            <label onClick={() => this.setState({ resolution: '512' })} >
+                                <input name="resolution" type="checkbox" checked={resolution === '512'} />
+                                512px
+                            </label>
+                            <label onClick={() => this.setState({ resolution: '1024' })} >
+                                <input name="resolution" type="checkbox" checked={resolution === '1024'} />
+                                1024px
+                            </label>
+                        </div><br />
                     </div>
                 </header>
                 <main className="results">
-                    {results.map((result) => (<Result key={result.trackId} data={result} cut={doCut} />))}
+                    {results.map((result) => (<Result key={result.trackId} data={result} cut={cut} resolution={resolution} format={format} />))}
                 </main>
                 <footer className="footer">Copyrights © 2023 - <a className="footer-msg" href='https://github.com/YuKongA'>YuKongA</a></footer>
             </div>

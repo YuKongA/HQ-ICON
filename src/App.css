@@ -164,7 +164,7 @@ label {
   display: flex;
   margin-left: 10%;
   margin-right: 10%;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   margin-top: 20px;
 }
 
@@ -233,7 +233,6 @@ label {
   .search {
     margin-left: 5%;
     margin-right: 5%;
-    margin-bottom: 30px;
   }
 
   .options label {
