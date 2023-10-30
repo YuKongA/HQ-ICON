@@ -27,7 +27,7 @@ class Result extends Component {
         const { data, resolution, format } = this.props;
         const { trackName, kind, primaryGenreName, artistName, trackViewUrl, artistViewUrl } = data;
         const { base64 } = this.state;
-        const platform = kind.startsWith('mac') ? 'Mac' : 'iOS';
+        const platform = kind.startsWith('mac') ? 'macOS' : 'iOS';
         return (
             <div className="result">
                 <a href={base64} download={`${trackName}-${platform}-${resolution}x${resolution}.${format}`}><img className="icon" src={base64} alt={trackName} /></a>

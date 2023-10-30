@@ -67,7 +67,7 @@ class App extends Component {
                             </label>
                             <label onClick={() => this.setState({ entity: 'macSoftware' })} >
                                 <input name="entity" type="checkbox" checked={entity === 'macSoftware'} />
-                                MacOS
+                                macOS
                             </label>
                         </div>
                         <div className="options">
