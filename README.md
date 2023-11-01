@@ -2,15 +2,17 @@
 
 网址：https://icon.yukonga.top
 
-完整例子：https://icon.yukonga.top?name=星穹铁道&country=cn&entity=software&limit=10&cut=1
+完整例子：https://icon.yukonga.top/?name=星穹铁道&country=cn&entity=software&limit=10&cut=1&resolution=512&format=png
 
-| url 传参 |             对应作用             |  默认值  |
-| :------: | :------------------------------: | :------: |
-|   name   |             应用名称             |    无    |
-| country  |   国家/地区（cn,us,jp,kr...）    |    cn    |
-|  entity  | 搜索对象（software/macSoftware） | software |
-|  limit   |      搜索数量限额（1..200）      |    10    |
-|   cut    |       是否裁切圆角（0/1）        |    1     |
+|  url 传参  |             对应作用             |  默认值  |
+| :--------: | :------------------------------: | :------: |
+|    name    |             应用名称             |    无    |
+|  country   |   国家/地区（cn,us,jp,kr...）    |    cn    |
+|   entity   | 搜索对象（software/macSoftware） | software |
+|   limit    |      搜索数量限额（1..200）      |    10    |
+|    cut     |       是否裁切圆角（0/1）        |    1     |
+| resolution |      分辨率（256/512/1024）      |   512    |
+|   format   |     图片格式（jpg/png/webp）     |   png    |
 
 国家/地区代码：[Country Codes](https://en.wikipedia.org/wiki/Country_code)
 
