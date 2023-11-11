@@ -1,10 +1,10 @@
 ### HQ ICON
 
-网址：https://icon.yukonga.top
+网址: https://icon.yukonga.top
 
-本仓库使用 [React](https://github.com/facebook/react) 创建
+本仓库使用 [React](https://github.com/facebook/react) + [Vite](https://vitejs.dev/) 创建
 
-完整例子：https://icon.yukonga.top/?name=星穹铁道&country=cn&entity=software&limit=10&cut=1&resolution=512&format=png
+完整例子: https://icon.yukonga.top/?name=星穹铁道&country=cn&entity=software&limit=10&cut=1&resolution=512&format=png
 
 |  url 传参  |             对应作用             |  默认值  |
 | :--------: | :------------------------------: | :------: |

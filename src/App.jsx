@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Result from './Result';
-import { searchApp } from './searchApp';
-import { getUrlArgs, changeUrlArgs } from './Url.js';
-import search from './search.svg';
+import Result from './Result.jsx';
+import { searchApp } from './searchApp.jsx';
+import { getUrlArgs, changeUrlArgs } from './Url.jsx';
+import search from '../public/search.svg';
 import './App.css';
 
 class App extends Component {
@@ -148,4 +148,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default App

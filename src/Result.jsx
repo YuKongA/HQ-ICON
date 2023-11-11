@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import drawOutline from './drawOutline';
+import drawOutline from './drawOutline.jsx';
 import './Result.css';
 
 class Result extends Component {
