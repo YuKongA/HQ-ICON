@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import { React, Component } from 'react';
 import Result from './Result.jsx';
 import { searchApp } from './searchApp.jsx';
 import { getUrlArgs, changeUrlArgs } from './Url.jsx';
-import search from '../public/search.svg';
 import './App.css';
 
 class App extends Component {
@@ -96,7 +95,7 @@ class App extends Component {
                                 onChange={(e) => this.setState({ name: e.target.value.trim() })}
                                 onKeyDown={(e) => e.key == 'Enter' ? this.search() : ''} />
                             <div className="search-button" onClick={this.search} >
-                                <img src={search} className="search-icon" alt="search" />
+                                <dev className="search-icon" />
                             </div>
                         </div>
                         <div className="options">

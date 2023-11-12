@@ -199,9 +199,10 @@ label {
 }
 
 .search-icon {
-  height: 30px;
-  width: 30px;
-  flex: 1;
+  margin: 0 auto;
+  height: 28px;
+  width: 28px;
+  background-image: url(/search.svg);
 }
 
 .results {

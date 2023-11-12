@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'MiSans VF';
-  background-image: url(../public/background.png);
+  background-image: url(/background.png);
 }
 
 #root {
