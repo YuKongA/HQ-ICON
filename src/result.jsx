@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import PropTypes from 'prop-types';
 import drawOutline from './drawOutline.jsx';
-import './Result.css';
+import './result.css';
 
 class Result extends Component {
     constructor(props) {

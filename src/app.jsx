@@ -1,8 +1,8 @@
 import { React, Component } from 'react';
-import Result from './Result.jsx';
+import Result from './result.jsx';
 import { searchApp } from './searchApp.jsx';
-import { getUrlArgs, changeUrlArgs } from './Url.jsx';
-import './App.css';
+import { getUrlArgs, changeUrlArgs } from './url.jsx';
+import './app.css';
 
 class App extends Component {
     constructor(props) {
