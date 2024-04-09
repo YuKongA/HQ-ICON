@@ -8,6 +8,7 @@ body {
   padding: 0;
   font-family: 'MiSans VF';
   background-image: url(/background.png);
+  background-color: #f5f5f5;
 }
 
 #root {
