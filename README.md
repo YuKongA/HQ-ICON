@@ -14,7 +14,7 @@
 |   limit    |      搜索数量限额（1..200）      |    10    |
 |    cut     |       是否裁切圆角（0/1）        |    1     |
 | resolution |      分辨率（256/512/1024）      |   512    |
-|   format   |     图片格式（jpg/png/webp）     |   png    |
+|   format   |     图片格式（jpeg/png/webp）     |   png    |
 
 国家/地区代码：[Country Codes](https://en.wikipedia.org/wiki/Country_code)
 

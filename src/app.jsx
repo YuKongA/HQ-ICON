@@ -7,20 +7,14 @@ import './app.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        if (getUrlArgs('country') != "") { var a = getUrlArgs('country') } else var a = 'cn';
-        if (getUrlArgs('entity') != "") { var b = getUrlArgs('entity') } else var b = 'software';
-        if (getUrlArgs('limit') != "") { var c = getUrlArgs('limit') } else var c = '10';
-        if (getUrlArgs('cut') != "") { var d = getUrlArgs('cut') } else var d = '1';
-        if (getUrlArgs('resolution') != "") { var e = getUrlArgs('resolution') } else var e = '512';
-        if (getUrlArgs('format') != "") { var f = getUrlArgs('format') } else var f = 'png';
         this.state = {
-            name: getUrlArgs('name'),
-            country: a,
-            entity: b,
-            limit: c,
-            cut: d,
-            resolution: e,
-            format: f,
+            name: getUrlArgs('name') || '',
+            country: getUrlArgs('country') || 'cn',
+            entity: getUrlArgs('entity') || 'software',
+            limit: getUrlArgs('limit') || '10',
+            cut: getUrlArgs('cut') || '1',
+            resolution: getUrlArgs('resolution') || '512',
+            format: getUrlArgs('format') || 'png',
             results: [],
         };
         this.search = this.search.bind(this);
@@ -37,22 +31,52 @@ class App extends Component {
             console.error(err);
         }
         if (name != '') {
-            var url = window.location.href;
-            var newUrl = changeUrlArgs(url, 'name', name);
-            newUrl = changeUrlArgs(newUrl, 'country', country);
-            newUrl = changeUrlArgs(newUrl, 'entity', entity);
-            newUrl = changeUrlArgs(newUrl, 'limit', limit);
-            newUrl = changeUrlArgs(newUrl, 'cut', cut);
-            newUrl = changeUrlArgs(newUrl, 'resolution', resolution);
-            newUrl = changeUrlArgs(newUrl, 'format', format);
+            const params = ['name', 'country', 'entity', 'limit', 'cut', 'resolution', 'format'];
+            let newUrl = window.location.href;
+            params.forEach(param => {
+                newUrl = changeUrlArgs(newUrl, param, this.state[param]);
+            });
             history.replaceState(null, null, newUrl);
         } else {
             history.replaceState(null, null, window.location.origin);
         }
     }
 
+    renderOption(key, value, text) {
+        return (
+            <label onClick={() => this.setState({ [key]: value })} >
+                <input name={key} type="checkbox" checked={this.state[key] === value} />
+                {text}
+            </label>
+        );
+    }
+
     render() {
-        const { name, country, entity, cut, resolution, format, results } = this.state;
+        const { name, cut, resolution, format, results } = this.state;
+        const entityMaps = [
+            { key: 'entity', value: 'software', text: 'iOS' },
+            { key: 'entity', value: 'macSoftware', text: 'macOS' },
+        ];
+        const countryMaps = [
+            { key: 'country', value: 'cn', text: '中/CN' },
+            { key: 'country', value: 'us', text: '美/US' },
+            { key: 'country', value: 'jp', text: '日/JP' },
+            { key: 'country', value: 'kr', text: '韩/KR' },
+        ];
+        const cutMaps = [
+            { key: 'cut', value: '1', text: '裁切圆角' },
+            { key: 'cut', value: '0', text: '原始图像' },
+        ];
+        const formatMaps = [
+            { key: 'format', value: 'jpeg', text: 'JPEG' },
+            { key: 'format', value: 'png', text: 'PNG' },
+            { key: 'format', value: 'webp', text: 'WebP' },
+        ];
+        const resolutionMaps = [
+            { key: 'resolution', value: '256', text: '256px' },
+            { key: 'resolution', value: '512', text: '512px' },
+            { key: 'resolution', value: '1024', text: '1024px' },
+        ];
         return (
             <div className="app">
                 <header>
@@ -60,32 +84,10 @@ class App extends Component {
                         <div className="logo">HQ ICON</div>
                         <div className="description">从 App Store 获取高清应用图标</div>
                         <div className="options">
-                            <label onClick={() => this.setState({ entity: 'software' })} >
-                                <input name="entity" type="checkbox" checked={entity === 'software'} />
-                                iOS
-                            </label>
-                            <label onClick={() => this.setState({ entity: 'macSoftware' })} >
-                                <input name="entity" type="checkbox" checked={entity === 'macSoftware'} />
-                                macOS
-                            </label>
+                            {entityMaps.map(option => this.renderOption(option.key, option.value, option.text))}
                         </div>
                         <div className="options">
-                            <label onClick={() => this.setState({ country: 'cn' })} >
-                                <input name="store" type="checkbox" checked={country === 'cn'} />
-                                中/CN
-                            </label>
-                            <label onClick={() => this.setState({ country: 'us' })} >
-                                <input name="store" type="checkbox" checked={country === 'us'} />
-                                美/US
-                            </label>
-                            <label onClick={() => this.setState({ country: 'jp' })} >
-                                <input name="store" type="checkbox" checked={country === 'jp'} />
-                                日/JP
-                            </label>
-                            <label onClick={() => this.setState({ country: 'kr' })} >
-                                <input name="store" type="checkbox" checked={country === 'kr'} />
-                                韩/KR
-                            </label>
+                            {countryMaps.map(option => this.renderOption(option.key, option.value, option.text))}
                         </div>
                         <div className="search">
                             <input
@@ -99,42 +101,13 @@ class App extends Component {
                             </div>
                         </div>
                         <div className="options">
-                            <label onClick={() => this.setState({ cut: '1' })} >
-                                <input name="cut" type="checkbox" checked={cut === '1'} />
-                                裁切圆角
-                            </label>
-                            <label onClick={() => this.setState({ cut: '0' })} >
-                                <input name="cut" type="checkbox" checked={cut === '0'} />
-                                原始图像
-                            </label>
+                            {cutMaps.map(option => this.renderOption(option.key, option.value, option.text))}
                         </div>
                         <div className="options">
-                            <label onClick={() => this.setState({ format: 'jpg' })} >
-                                <input name="format" type="checkbox" checked={format === 'jpg'} />
-                                JPG
-                            </label>
-                            <label onClick={() => this.setState({ format: 'png' })} >
-                                <input name="format" type="checkbox" checked={format === 'png'} />
-                                PNG
-                            </label>
-                            <label onClick={() => this.setState({ format: 'webp' })} >
-                                <input name="format" type="checkbox" checked={format === 'webp'} />
-                                WEBP
-                            </label>
+                            {formatMaps.map(option => this.renderOption(option.key, option.value, option.text))}
                         </div>
                         <div className="options">
-                            <label onClick={() => this.setState({ resolution: '256' })} >
-                                <input name="resolution" type="checkbox" checked={resolution === '256'} />
-                                256px
-                            </label>
-                            <label onClick={() => this.setState({ resolution: '512' })} >
-                                <input name="resolution" type="checkbox" checked={resolution === '512'} />
-                                512px
-                            </label>
-                            <label onClick={() => this.setState({ resolution: '1024' })} >
-                                <input name="resolution" type="checkbox" checked={resolution === '1024'} />
-                                1024px
-                            </label>
+                            {resolutionMaps.map(option => this.renderOption(option.key, option.value, option.text))}
                         </div><br />
                     </div>
                 </header>
