@@ -32,7 +32,7 @@ export default function drawOutline(data, cut, resolution, format) {
             } else {
                 drawOutline(`m${resolution}, m${resolution}`);
             }
-            resolve(canvas.toDataURL());
+            resolve(canvas.toDataURL(`image/${format}`));
         };
     });
 }
