@@ -114,7 +114,7 @@ class App extends Component {
                 <main className="results">
                     {results.map((result) => (<Result key={result.trackId} data={result} cut={cut} resolution={resolution} format={format} />))}
                 </main>
-                <footer className="footer">Copyrights © 2023 - <a className="footer-msg" href='https://github.com/YuKongA'>YuKongA</a></footer>
+                <footer className="footer">Copyright © 2024 - <a className="footer-msg" href='https://github.com/YuKongA'>YuKongA</a></footer>
             </div>
         );
     }
