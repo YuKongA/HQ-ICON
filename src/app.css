@@ -27,34 +27,48 @@ main {
 
 footer {
   position: fixed;
-  bottom: 8px;
+  bottom: 10px;
   left: calc(50vw - 130px);
   right: calc(50vw - 130px);
-  background-color: rgb(0, 0, 0, 0.15);
-  color: #fff;
+  background-color: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #2f2f2f;
   padding: 5px;
   border-radius: 10px;
-  transition: background-color 0.35s;
+  font-family: "MiSans VF";
+  text-align: center;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 footer:hover {
-  background-color: rgb(0, 0, 0, 0.75);
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.55);
 }
 
 a.footer-msg {
-  color: #fff;
+  color: #2f2f2f;
+  transition: color 0.3s;
 }
 
 a.footer-msg:visited {
-  color: #fff;
-}
-
-a.footer-msg:hover {
-  color: #6ee48d;
+  color: #2f2f2f;
 }
 
 a.footer-msg:active {
-  color: #ffcc7a;
+  color: #FFCC7A;
+}
+
+footer a.footer-msg {
+  transition: color 0.5s ease;
+}
+
+footer:hover a.footer-msg {
+  color: #FFF;
+}
+
+footer:hover a.footer-msg:hover {
+  color: #66CC66;
 }
 
 input::-webkit-input-placeholder {
