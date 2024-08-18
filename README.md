@@ -15,7 +15,7 @@ https://icon.yukonga.top
 |    name    |             应用名称             |    无    |
 |  country   |   国家/地区（cn,us,jp,kr...）    |    cn    |
 |   entity   | 搜索对象（software/macSoftware） | software |
-|   limit    |      搜索数量限额（1..200）      |    10    |
+|   limit    |      搜索数量限额（1..200）      |    12    |
 |    cut     |       是否裁切圆角（0/1）        |    1     |
 | resolution |      分辨率（256/512/1024）      |   512    |
 |   format   |     图片格式（jpeg/png/webp）     |   png    |

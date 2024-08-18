@@ -11,7 +11,7 @@ class App extends Component {
             name: getUrlArgs('name') || '',
             country: getUrlArgs('country') || 'cn',
             entity: getUrlArgs('entity') || 'software',
-            limit: getUrlArgs('limit') || '10',
+            limit: getUrlArgs('limit') || '12',
             cut: getUrlArgs('cut') || '1',
             resolution: getUrlArgs('resolution') || '512',
             format: getUrlArgs('format') || 'png',
