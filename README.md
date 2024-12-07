@@ -4,7 +4,9 @@
 https://icon.yukonga.top
 
 ### 注意：
-由于 Apple 目前限制了 Android UA 查询，所以 Android 用户请使用 [App](https://github.com/YuKongA/HQ-ICON_Compose/releases) 版本
+由于 Apple 目前限制了 Android UA 查询，只会返回一个名称完全符合的查询结果。
+
+所以 Android 用户请使用隔壁仓库的 [App](https://github.com/YuKongA/HQ-ICON_Compose/releases) 版本。
 
 ### 使用：
 完整例子：https://icon.yukonga.top/?name=星穹铁道&country=cn&entity=software&limit=10&cut=1&resolution=512&format=png
