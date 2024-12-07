@@ -128,6 +128,7 @@ header {
 .search {
   width: 368px;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .search-input {
@@ -302,10 +303,9 @@ header {
 
 /* 结果区域 */
 .results {
-  flex: 1;
   padding: 2rem 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 2rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -361,17 +361,7 @@ footer {
 }
 
 /* 响应式布局 */
-@media (min-width: 1600px) {
-  .results {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
 @media (max-width: 1200px) {
-  .results {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
   .header-content {
     position: relative;
     padding-top: 45px;
@@ -393,15 +383,35 @@ footer {
   }
 }
 
-@media (max-width: 992px) {
-  .results {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 @media (max-width: 768px) {
   header {
     padding: 1rem;
+  }
+
+  .header-controls {
+    display: flex;
+    gap: 0.5rem;
+    transform: scale(0.72);
+  }
+
+  .lang-toggle,
+  .theme-toggle {
+    display: flex;
+    opacity: 0;
+    transform: translateX(20px);
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .header-controls.show .lang-toggle,
+  .header-controls.show .theme-toggle {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .header-controls .expand-controls {
+    display: flex;
   }
 
   .header-content {
@@ -410,11 +420,7 @@ footer {
     gap: 1rem;
     margin-bottom: 1rem;
     position: relative;
-    padding-top: 40px;
-  }
-
-  .header-controls {
-    transform: scale(0.8);
+    padding-top: 20px;
   }
 
   .branding {
@@ -468,4 +474,38 @@ footer {
     font-size: 0.8rem;
     padding: 0 10px;
   }
+}
+
+/* 添加展开按钮样式 */
+.expand-controls {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--filter-bg);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.expand-controls::before,
+.expand-controls::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background: var(--text-color);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.expand-controls::before {
+  transform: rotate(90deg);
+}
+
+.expand-controls.active::before {
+  transform: rotate(0);
 }

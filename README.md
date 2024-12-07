@@ -9,7 +9,7 @@ https://icon.yukonga.top
 所以 Android 用户请使用隔壁仓库的 [App](https://github.com/YuKongA/HQ-ICON_Compose/releases) 版本。
 
 ### 使用：
-完整例子：https://icon.yukonga.top/?name=星穹铁道&country=cn&entity=software&limit=10&cut=1&resolution=512&format=png
+完整例子：https://icon.yukonga.top/?name=Google&country=us&entity=software&limit=18&cut=0&resolution=1024&format=webp
 
 对照表：
 |  url 传参  |             对应作用             |  默认值  |
@@ -17,7 +17,7 @@ https://icon.yukonga.top
 |    name    |             应用名称             |    无    |
 |  country   |   国家/地区（cn,us,jp,kr...）    |    cn    |
 |   entity   | 搜索对象（software/macSoftware） | software |
-|   limit    |      搜索数量限额（1..200）      |    12    |
+|   limit    |      搜索数量限额（1..200）      |    18    |
 |    cut     |       是否裁切圆角（0/1）        |    1     |
 | resolution |      分辨率（256/512/1024）      |   512    |
 |   format   |     图片格式（jpeg/png/webp）     |   png    |

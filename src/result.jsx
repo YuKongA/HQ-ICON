@@ -15,8 +15,8 @@ class Result extends Component {
 
     async componentDidUpdate(prevProps) {
         if (
-            prevProps.cut !== this.props.cut || 
-            prevProps.resolution !== this.props.resolution || 
+            prevProps.cut !== this.props.cut ||
+            prevProps.resolution !== this.props.resolution ||
             prevProps.format !== this.props.format
         ) {
             await this.updateBase64();

@@ -25,6 +25,7 @@ class App extends Component {
             theme,
             language,
             currentLang,
+            isControlsVisible: false
         };
 
         this.search = this.search.bind(this);
@@ -77,9 +78,9 @@ class App extends Component {
     }
 
     toggleLanguage = (newLang) => {
-        this.setState({ 
+        this.setState({
             language: newLang,
-            currentLang: newLang === 'system' 
+            currentLang: newLang === 'system'
                 ? (navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en')
                 : newLang
         }, () => {
@@ -90,6 +91,12 @@ class App extends Component {
     toggleFilters() {
         this.setState(prevState => ({
             isFiltersVisible: !prevState.isFiltersVisible
+        }));
+    }
+
+    toggleControls = () => {
+        this.setState(prevState => ({
+            isControlsVisible: !prevState.isControlsVisible
         }));
     }
 
@@ -109,20 +116,20 @@ class App extends Component {
             this.setState({ results: limitedResults });
 
             const params = ['name', 'country', 'entity', 'limit', 'cut', 'resolution', 'format'];
-            const newUrl = params.reduce((url, param) => 
-                changeUrlArgs(url, param, this.state[param]), 
+            const newUrl = params.reduce((url, param) =>
+                changeUrlArgs(url, param, this.state[param]),
                 window.location.href
             );
             history.replaceState(null, null, newUrl);
         } catch (err) {
-            console.error('Error:', err);    
+            console.error('Error:', err);
             this.setState({ results: [] });
         }
     }
 
     render() {
-        const { name, cut, resolution, format, results, isFiltersVisible, theme, language, currentLang } = this.state;
-        
+        const { name, cut, resolution, format, results, isFiltersVisible, theme, language, currentLang, isControlsVisible } = this.state;
+
         const translations = {
             zh: {
                 title: 'HQ ICON',
@@ -204,7 +211,7 @@ class App extends Component {
                                 <div className="description">{t.description}</div>
                             </div>
                             <div className="header-right">
-                                <div className="header-controls">
+                                <div className={`header-controls ${isControlsVisible ? 'show' : ''}`}>
                                     <div className="lang-toggle">
                                         <button
                                             className={`theme-btn ${language === 'zh' ? 'active' : ''}`}
@@ -245,6 +252,11 @@ class App extends Component {
                                             {t.themeDark}
                                         </button>
                                     </div>
+                                    <button
+                                        className={`expand-controls ${isControlsVisible ? 'active' : ''}`}
+                                        onClick={this.toggleControls}
+                                        aria-label="Toggle controls"
+                                    />
                                 </div>
                                 <div className="search">
                                     <input
@@ -286,7 +298,7 @@ class App extends Component {
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.queryCount}</div>
                                     <div className="filter-options">
@@ -305,7 +317,7 @@ class App extends Component {
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.region}</div>
                                     <div className="filter-options">
@@ -324,7 +336,7 @@ class App extends Component {
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.cutMode}</div>
                                     <div className="filter-options">
@@ -343,7 +355,7 @@ class App extends Component {
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.imageFormat}</div>
                                     <div className="filter-options">
@@ -362,7 +374,7 @@ class App extends Component {
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.imageSize}</div>
                                     <div className="filter-options">
