@@ -96,7 +96,12 @@ class App extends Component {
     async search() {
         const { name, country, entity, limit } = this.state;
         const trimmedName = name.trim();
-        if (!trimmedName) return;
+        if (!trimmedName) {
+            this.setState({ results: [] });
+            const cleanUrl = window.location.href.split('?')[0];
+            history.replaceState(null, null, cleanUrl);
+            return;
+        }
 
         try {
             const data = await searchApp(trimmedName, country, entity, limit);
@@ -117,36 +122,7 @@ class App extends Component {
 
     render() {
         const { name, cut, resolution, format, results, isFiltersVisible, theme, language, currentLang } = this.state;
-        const entityMaps = [
-            { key: 'entity', value: 'software', text: 'iOS' },
-            { key: 'entity', value: 'macSoftware', text: 'macOS' },
-        ];
-        const countryMaps = [
-            { key: 'country', value: 'cn', text: 'CN' },
-            { key: 'country', value: 'us', text: 'US' },
-            { key: 'country', value: 'jp', text: 'JP' },
-            { key: 'country', value: 'kr', text: 'KR' },
-        ];
-        const cutMaps = [
-            { key: 'cut', value: '1', text: '裁切圆角' },
-            { key: 'cut', value: '0', text: '原始图像' },
-        ];
-        const formatMaps = [
-            { key: 'format', value: 'jpeg', text: 'JPEG' },
-            { key: 'format', value: 'png', text: 'PNG' },
-            { key: 'format', value: 'webp', text: 'WebP' },
-        ];
-        const resolutionMaps = [
-            { key: 'resolution', value: '256', text: '256px' },
-            { key: 'resolution', value: '512', text: '512px' },
-            { key: 'resolution', value: '1024', text: '1024px' },
-        ];
-        const limitMaps = [
-            { key: 'limit', value: '18', text: '18' },
-            { key: 'limit', value: '24', text: '24' },
-            { key: 'limit', value: '30', text: '30' },
-        ];
-
+        
         const translations = {
             zh: {
                 title: 'HQ ICON',
@@ -168,25 +144,55 @@ class App extends Component {
             },
             en: {
                 title: 'HQ ICON',
-                description: 'Get high-quality app icons from App Store',
-                searchPlaceholder: 'Search apps...',
-                filterToggle: 'Filters',
-                queryType: 'Query Type',
-                queryCount: 'Query Count',
+                description: 'High-quality App Store icon downloader',
+                searchPlaceholder: 'Search for apps...',
+                filterToggle: 'Filter Options',
+                queryType: 'Platform',
+                queryCount: 'Results',
                 region: 'Region',
-                cutMode: 'Cut Mode',
-                cutCorner: 'Round Corner',
+                cutMode: 'Style',
+                cutCorner: 'Rounded',
                 originalImage: 'Original',
                 imageFormat: 'Format',
                 imageSize: 'Size',
-                langToggle: 'Toggle Language',
+                langToggle: 'Language',
                 themeLight: 'Light',
                 themeDark: 'Dark',
-                themeSystem: 'System'
+                themeSystem: 'Auto'
             }
         };
 
         const t = translations[language === 'system' ? currentLang : language];
+
+        const entityMaps = [
+            { key: 'entity', value: 'software', text: 'iOS' },
+            { key: 'entity', value: 'macSoftware', text: 'macOS' },
+        ];
+        const countryMaps = [
+            { key: 'country', value: 'cn', text: 'CN' },
+            { key: 'country', value: 'us', text: 'US' },
+            { key: 'country', value: 'jp', text: 'JP' },
+            { key: 'country', value: 'kr', text: 'KR' },
+        ];
+        const cutMaps = [
+            { key: 'cut', value: '1', text: t.cutCorner },
+            { key: 'cut', value: '0', text: t.originalImage },
+        ];
+        const formatMaps = [
+            { key: 'format', value: 'jpeg', text: 'JPEG' },
+            { key: 'format', value: 'png', text: 'PNG' },
+            { key: 'format', value: 'webp', text: 'WebP' },
+        ];
+        const resolutionMaps = [
+            { key: 'resolution', value: '256', text: '256px' },
+            { key: 'resolution', value: '512', text: '512px' },
+            { key: 'resolution', value: '1024', text: '1024px' },
+        ];
+        const limitMaps = [
+            { key: 'limit', value: '18', text: '18' },
+            { key: 'limit', value: '24', text: '24' },
+            { key: 'limit', value: '30', text: '30' },
+        ];
 
         return (
             <div className="app">

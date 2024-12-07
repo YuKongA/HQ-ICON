@@ -80,7 +80,7 @@ header {
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 /* 主题和语言切换按钮组通用样式 */
@@ -89,7 +89,7 @@ header {
   display: flex;
   gap: 0.5rem;
   padding: 4px;
-  height: 40px;
+  height: 44px;
   background: var(--filter-bg);
   border-radius: 8px;
   width: 180px;
@@ -98,7 +98,7 @@ header {
 
 /* 按钮通用样式 */
 .theme-btn {
-  height: 32px;
+  height: 36px;
   padding: 0;
   border: none;
   border-radius: 6px;
@@ -126,13 +126,13 @@ header {
 
 /* 搜索区域 */
 .search {
-  width: 300px;
+  width: 368px;
   position: relative;
 }
 
 .search-input {
   width: 100%;
-  height: 40px;
+  height: 44px;
   padding: 0 40px 0 16px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -157,8 +157,8 @@ header {
   right: 4px;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border: none;
   background: var(--text-color);
   border-radius: 6px;
@@ -190,7 +190,7 @@ header {
 .filters-toggle {
   display: flex;
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.8rem 1rem;
   background: var(--filter-bg);
   border: none;
   border-radius: 8px;
@@ -203,6 +203,7 @@ header {
   position: relative;
   align-items: center;
   -webkit-tap-highlight-color: transparent;
+  height: 44px;
 }
 
 .filters-toggle:hover {
@@ -234,7 +235,7 @@ header {
   border-radius: 8px;
   margin-top: 10px;
   opacity: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .filters.show {
@@ -246,7 +247,7 @@ header {
 /* 筛选组样式 */
 .filter-group {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-color);
@@ -260,6 +261,8 @@ header {
 
 .filter-group-title {
   min-width: 80px;
+  width: 80px;
+  flex-shrink: 0;
   color: var(--text-secondary);
   margin-right: 10px;
 }
@@ -268,6 +271,8 @@ header {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  flex: 1;
+  padding-top: 2px;
 }
 
 .filter-group input[type="checkbox"] {
@@ -369,24 +374,18 @@ footer {
 
   .header-content {
     position: relative;
-    padding-top: 40px;
+    padding-top: 45px;
   }
 
   .header-controls {
     position: absolute;
     top: 0;
     right: 0;
-    transform: scale(0.8);
     transform-origin: top right;
     background: transparent;
     padding: 0;
     z-index: 101;
     gap: 0.5rem;
-  }
-
-  .theme-toggle,
-  .lang-toggle {
-    background: var(--filter-bg);
   }
 
   .theme-btn {
@@ -414,9 +413,13 @@ footer {
     padding-top: 40px;
   }
 
+  .header-controls {
+    transform: scale(0.8);
+  }
+
   .branding {
     text-align: center;
-    padding-top: 40px;
+    padding-top: 20px;
   }
 
   .header-right {
