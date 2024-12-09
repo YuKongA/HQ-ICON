@@ -1,7 +1,9 @@
 # HQ ICON
 
 ### 网址：
-https://icon.yukonga.top
+我自己的域名：https://icon.yukonga.top/ (用了 vercel 构建 + cf 托管，速度一般)
+
+GitHub Page：https://yukonga.github.io/HQ-ICON/ (如果你能正常访问 GitHub，那访问它应该很快)
 
 ### 使用：
 完整例子: https://icon.yukonga.top/?name=Google&country=us&entity=software&limit=18&cut=0&resolution=1024&format=webp
