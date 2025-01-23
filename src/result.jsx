@@ -6,7 +6,7 @@ import './result.css';
 class Result extends Component {
     constructor(props) {
         super(props);
-        this.state = { base64: '' };
+        this.state = { base64: '', loading: true };
     }
 
     async componentDidMount() {
@@ -26,20 +26,21 @@ class Result extends Component {
     async updateBase64() {
         const { data, cut, resolution, format } = this.props;
         const base64 = await drawOutline(data, cut, resolution, format);
-        this.setState({ base64 });
+        this.setState({ base64, loading: false });
     }
 
     render() {
         const { data } = this.props;
         const { trackName, kind, primaryGenreName, artistName, trackViewUrl, artistViewUrl } = data;
-        const { base64 } = this.state;
+        const { base64, loading } = this.state;
         const platform = kind.startsWith('mac') ? 'macOS' : 'iOS';
+        const placeholder = '/placeholder.webp';
 
         return (
             <div className="result">
                 <a href={base64} download={`${trackName}-${platform}-${this.props.resolution}x${this.props.resolution}.${this.props.format}`}>
                     <div className="icon-wrapper">
-                        <img className="icon" src={base64} alt={trackName} />
+                        <img className="icon" src={loading ? placeholder : base64} alt={trackName} />
                     </div>
                 </a>
                 <div className="info">

@@ -41,10 +41,22 @@ class App extends Component {
         if (this.state.name) {
             this.search();
         }
+        this.loadSettings();
     }
 
     componentWillUnmount() {
         this.darkModeMediaQuery?.removeEventListener('change', this.handleSystemThemeChange);
+    }
+
+    loadSettings() {
+        const savedTheme = localStorage.getItem('theme');
+        const savedLanguage = localStorage.getItem('language');
+        if (savedTheme) {
+            this.setState({ theme: savedTheme }, () => this.applyTheme(savedTheme));
+        }
+        if (savedLanguage) {
+            this.setState({ language: savedLanguage }, () => this.handleSystemLanguageChange());
+        }
     }
 
     applyTheme = (theme) => {
@@ -54,6 +66,7 @@ class App extends Component {
         } else {
             document.documentElement.setAttribute('data-theme', theme);
         }
+        localStorage.setItem('theme', theme);
     }
 
     handleSystemThemeChange = (e) => {
@@ -68,6 +81,7 @@ class App extends Component {
             const systemLang = navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en';
             this.setState({ currentLang: systemLang });
         }
+        localStorage.setItem('language', this.state.language);
     }
 
     toggleTheme = (newTheme) => {
