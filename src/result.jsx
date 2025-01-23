@@ -34,13 +34,12 @@ class Result extends Component {
         const { trackName, kind, primaryGenreName, artistName, trackViewUrl, artistViewUrl } = data;
         const { base64, loading } = this.state;
         const platform = kind.startsWith('mac') ? 'macOS' : 'iOS';
-        const placeholder = '/placeholder.webp';
 
         return (
             <div className="result">
                 <a href={base64} download={`${trackName}-${platform}-${this.props.resolution}x${this.props.resolution}.${this.props.format}`}>
                     <div className="icon-wrapper">
-                        <img className="icon" src={loading ? placeholder : base64} alt={trackName} />
+                        <img className={`icon ${loading ? 'icon-null' : ''}`} src={loading ? '' : base64} alt={loading ? '' : trackName} />
                     </div>
                 </a>
                 <div className="info">

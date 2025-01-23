@@ -1,6 +1,7 @@
 /* 主题变量 */
 :root {
   --bg-color: #fafafa;
+  --bg-diff-color: #1a1a1a;
   --header-bg: #fff;
   --text-color: #000;
   --text-secondary: #666;
@@ -12,6 +13,7 @@
 
 [data-theme="dark"] {
   --bg-color: #1a1a1a;
+  --bg-diff-color: #fafafa;
   --header-bg: #242424;
   --text-color: #fff;
   --text-secondary: #999;

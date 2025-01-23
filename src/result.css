@@ -25,6 +25,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  color: transparent;
 }
 
 .info {
@@ -67,6 +68,17 @@ a.icon-info {
 
 a.icon-info:hover {
   color: var(--text-color);
+}
+
+.icon-null {
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  position: absolute;
+  background-color: var(--bg-diff-color);
+  mask: url(/placeholder.svg) center/contain no-repeat;
+  -webkit-mask: url(/placeholder.svg) center/contain no-repeat;
 }
 
 @media (max-width: 480px) {
