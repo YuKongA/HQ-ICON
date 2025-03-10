@@ -6,7 +6,7 @@ export default function drawOutline(data, cut, resolution, format) {
         canvas.height = resolution;
         const iOSDefaultUrl = '/512x512bb.jpg';
         const macDefaultUrl = '/512x512bb.png';
-        const newUrl = `/${resolution}x${resolution}bb.${format}`;
+        const newUrl = `/${resolution}x${resolution}bb.webp`;
         const newArtWorkUrl = artworkUrl512.replace(iOSDefaultUrl, newUrl).replace(macDefaultUrl, newUrl);
         const ctx = canvas.getContext('2d');
         const appIcon = new Image();
