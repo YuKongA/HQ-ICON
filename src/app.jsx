@@ -194,6 +194,17 @@ class App extends Component {
             { key: 'country', value: 'us', text: 'US' },
             { key: 'country', value: 'jp', text: 'JP' },
             { key: 'country', value: 'kr', text: 'KR' },
+            { key: 'country', value: 'tw', text: 'TW' },
+            { key: 'country', value: 'hk', text: 'HK' },
+            { key: 'country', value: 'sg', text: 'SG' },
+            { key: 'country', value: 'gb', text: 'GB' },
+            { key: 'country', value: 'fr', text: 'FR' },
+            { key: 'country', value: 'de', text: 'DE' },
+            { key: 'country', value: 'it', text: 'IT' },
+            { key: 'country', value: 'es', text: 'ES' },
+            { key: 'country', value: 'ru', text: 'RU' },
+            { key: 'country', value: 'in', text: 'IN' },
+            { key: 'country', value: 'th', text: 'TH' },
         ];
         const cutMaps = [
             { key: 'cut', value: '1', text: t.cutCorner },
@@ -210,9 +221,10 @@ class App extends Component {
             { key: 'resolution', value: '1024', text: '1024px' },
         ];
         const limitMaps = [
+            { key: 'limit', value: '6', text: '6' },
             { key: 'limit', value: '18', text: '18' },
-            { key: 'limit', value: '24', text: '24' },
             { key: 'limit', value: '30', text: '30' },
+            { key: 'limit', value: '48', text: '48' },
         ];
 
         return (

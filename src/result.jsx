@@ -39,7 +39,7 @@ class Result extends Component {
             <div className="result">
                 <a href={base64} download={`${trackName}-${platform}-${this.props.resolution}x${this.props.resolution}.${this.props.format}`}>
                     <div className="icon-wrapper">
-                        <img className={`icon ${loading ? 'icon-null' : ''}`} src={loading ? '' : base64} alt={loading ? '' : trackName} />
+                        <img className={`icon ${loading || !base64 ? 'icon-null' : ''}`} src={loading || !base64 ? null : base64} alt={loading || !base64 ? '' : trackName} />
                     </div>
                 </a>
                 <div className="info">
