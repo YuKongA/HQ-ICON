@@ -1,8 +1,91 @@
 import React, { Component } from 'react';
 import Result from './result.jsx';
 import { searchApp } from './searchApp.jsx';
-import { getUrlArgs, changeUrlArgs } from './url.jsx';
+import { getUrlArgs } from './url.jsx';
 import './app.css';
+
+const TRANSLATIONS = {
+    zh: {
+        title: 'HQ ICON',
+        description: '从 App Store 获取高清应用图标',
+        searchPlaceholder: '搜索应用...',
+        filterToggle: '筛选条件',
+        queryType: '查询类型',
+        queryCount: '查询数量',
+        region: '国家地区',
+        cutMode: '裁切方式',
+        cutCorner: '裁切圆角',
+        originalImage: '原始图像',
+        imageFormat: '图像格式',
+        imageSize: '图像尺寸',
+        langToggle: '切换语言',
+        themeLight: '浅色',
+        themeDark: '深色',
+        themeSystem: '系统'
+    },
+    en: {
+        title: 'HQ ICON',
+        description: 'High-quality App Store icon downloader',
+        searchPlaceholder: 'Search for apps...',
+        filterToggle: 'Filter Options',
+        queryType: 'Platform',
+        queryCount: 'Results',
+        region: 'Region',
+        cutMode: 'Style',
+        cutCorner: 'Rounded',
+        originalImage: 'Original',
+        imageFormat: 'Format',
+        imageSize: 'Size',
+        langToggle: 'Language',
+        themeLight: 'Light',
+        themeDark: 'Dark',
+        themeSystem: 'Auto'
+    }
+};
+
+const ENTITY_MAPS = [
+    { key: 'entity', value: 'software', text: 'iOS' },
+    { key: 'entity', value: 'macSoftware', text: 'macOS' },
+];
+const COUNTRY_MAPS = [
+    { key: 'country', value: 'cn', text: 'CN' },
+    { key: 'country', value: 'us', text: 'US' },
+    { key: 'country', value: 'jp', text: 'JP' },
+    { key: 'country', value: 'kr', text: 'KR' },
+    { key: 'country', value: 'tw', text: 'TW' },
+    { key: 'country', value: 'hk', text: 'HK' },
+    { key: 'country', value: 'sg', text: 'SG' },
+    { key: 'country', value: 'gb', text: 'GB' },
+    { key: 'country', value: 'fr', text: 'FR' },
+    { key: 'country', value: 'de', text: 'DE' },
+    { key: 'country', value: 'it', text: 'IT' },
+    { key: 'country', value: 'es', text: 'ES' },
+    { key: 'country', value: 'ru', text: 'RU' },
+    { key: 'country', value: 'in', text: 'IN' },
+    { key: 'country', value: 'th', text: 'TH' },
+];
+const FORMAT_MAPS = [
+    { key: 'format', value: 'jpeg', text: 'JPEG' },
+    { key: 'format', value: 'png', text: 'PNG' },
+    { key: 'format', value: 'webp', text: 'WebP' },
+];
+const RESOLUTION_MAPS = [
+    { key: 'resolution', value: '256', text: '256px' },
+    { key: 'resolution', value: '512', text: '512px' },
+    { key: 'resolution', value: '1024', text: '1024px' },
+];
+const LIMIT_MAPS = [
+    { key: 'limit', value: '6', text: '6' },
+    { key: 'limit', value: '18', text: '18' },
+    { key: 'limit', value: '30', text: '30' },
+    { key: 'limit', value: '48', text: '48' },
+];
+
+const getCutMaps = (t) => [
+    { key: 'cut', value: '1', text: t.cutCorner },
+    { key: 'cut', value: '0', text: t.originalImage },
+];
+
 
 class App extends Component {
     constructor(props) {
@@ -31,6 +114,11 @@ class App extends Component {
         this.search = this.search.bind(this);
         this.toggleFilters = this.toggleFilters.bind(this);
 
+        this.draggedElement = null;
+        this.isDragging = false;
+        this.startX = 0;
+        this.scrollLeftStart = 0;
+
         this.applyTheme(theme);
     }
 
@@ -38,25 +126,29 @@ class App extends Component {
         this.darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         this.darkModeMediaQuery.addEventListener('change', this.handleSystemThemeChange);
 
+        this.loadSettings();
         if (this.state.name) {
             this.search();
         }
-        this.loadSettings();
     }
 
     componentWillUnmount() {
         this.darkModeMediaQuery?.removeEventListener('change', this.handleSystemThemeChange);
+        document.removeEventListener('mousemove', this.handleDocumentMouseMove);
+        document.removeEventListener('mouseup', this.handleDocumentMouseUp);
     }
 
     loadSettings() {
-        const savedTheme = localStorage.getItem('theme');
-        const savedLanguage = localStorage.getItem('language');
-        if (savedTheme) {
-            this.setState({ theme: savedTheme }, () => this.applyTheme(savedTheme));
-        }
-        if (savedLanguage) {
-            this.setState({ language: savedLanguage }, () => this.handleSystemLanguageChange());
-        }
+        const savedTheme = localStorage.getItem('theme') || 'system';
+        const savedLanguage = localStorage.getItem('language') || 'system';
+
+        this.setState({
+            theme: savedTheme,
+            language: savedLanguage
+        }, () => {
+            this.applyTheme(this.state.theme);
+            this.handleSystemLanguageChange();
+        });
     }
 
     applyTheme = (theme) => {
@@ -77,11 +169,13 @@ class App extends Component {
     }
 
     handleSystemLanguageChange = () => {
-        if (this.state.language === 'system') {
+        const { language } = this.state;
+        if (language === 'system') {
             const systemLang = navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en';
             this.setState({ currentLang: systemLang });
+        } else {
+            this.setState({ currentLang: language });
         }
-        localStorage.setItem('language', this.state.language);
     }
 
     toggleTheme = (newTheme) => {
@@ -115,7 +209,7 @@ class App extends Component {
     }
 
     async search() {
-        const { name, country, entity, limit } = this.state;
+        const { name, country, entity, limit, cut, resolution, format } = this.state;
         const trimmedName = name.trim();
         if (!trimmedName) {
             this.setState({ results: [] });
@@ -126,106 +220,68 @@ class App extends Component {
 
         try {
             const data = await searchApp(trimmedName, country, entity, limit);
-            const limitedResults = data.results.slice(0, parseInt(limit));
+            const limitedResults = data.results.slice(0, parseInt(limit, 10));
             this.setState({ results: limitedResults });
 
-            const params = ['name', 'country', 'entity', 'limit', 'cut', 'resolution', 'format'];
-            const newUrl = params.reduce((url, param) =>
-                changeUrlArgs(url, param, this.state[param]),
-                window.location.href
-            );
-            history.replaceState(null, null, newUrl);
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('name', trimmedName);
+            currentUrl.searchParams.set('country', country);
+            currentUrl.searchParams.set('entity', entity);
+            currentUrl.searchParams.set('limit', limit);
+            currentUrl.searchParams.set('cut', cut);
+            currentUrl.searchParams.set('resolution', resolution);
+            currentUrl.searchParams.set('format', format);
+            history.replaceState(null, null, currentUrl.toString());
         } catch (err) {
             console.error('Error:', err);
             this.setState({ results: [] });
         }
     }
 
+    handleFilterOptionsMouseDown = (event) => {
+        const el = event.currentTarget;
+        this.draggedElement = el;
+        this.isDragging = true;
+        this.startX = event.pageX - el.offsetLeft;
+        this.scrollLeftStart = el.scrollLeft;
+        el.classList.add('grabbing');
+
+        document.addEventListener('mousemove', this.handleDocumentMouseMove);
+        document.addEventListener('mouseup', this.handleDocumentMouseUp);
+        event.preventDefault();
+    };
+
+    handleDocumentMouseMove = (event) => {
+        if (!this.isDragging || !this.draggedElement) return;
+        event.preventDefault();
+        const x = event.pageX - this.draggedElement.offsetLeft;
+        const walk = (x - this.startX) * 1.5;
+        this.draggedElement.scrollLeft = this.scrollLeftStart - walk;
+    };
+
+    handleDocumentMouseUp = () => {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        if (this.draggedElement) {
+            this.draggedElement.classList.remove('grabbing');
+        }
+        this.draggedElement = null;
+
+        document.removeEventListener('mousemove', this.handleDocumentMouseMove);
+        document.removeEventListener('mouseup', this.handleDocumentMouseUp);
+    };
+
     render() {
         const { name, cut, resolution, format, results, isFiltersVisible, theme, language, currentLang, isControlsVisible } = this.state;
 
-        const translations = {
-            zh: {
-                title: 'HQ ICON',
-                description: '从 App Store 获取高清应用图标',
-                searchPlaceholder: '搜索应用...',
-                filterToggle: '筛选条件',
-                queryType: '查询类型',
-                queryCount: '查询数量',
-                region: '国家地区',
-                cutMode: '裁切方式',
-                cutCorner: '裁切圆角',
-                originalImage: '原始图像',
-                imageFormat: '图像格式',
-                imageSize: '图像尺寸',
-                langToggle: '切换语言',
-                themeLight: '浅色',
-                themeDark: '深色',
-                themeSystem: '系统'
-            },
-            en: {
-                title: 'HQ ICON',
-                description: 'High-quality App Store icon downloader',
-                searchPlaceholder: 'Search for apps...',
-                filterToggle: 'Filter Options',
-                queryType: 'Platform',
-                queryCount: 'Results',
-                region: 'Region',
-                cutMode: 'Style',
-                cutCorner: 'Rounded',
-                originalImage: 'Original',
-                imageFormat: 'Format',
-                imageSize: 'Size',
-                langToggle: 'Language',
-                themeLight: 'Light',
-                themeDark: 'Dark',
-                themeSystem: 'Auto'
-            }
-        };
+        const t = TRANSLATIONS[language === 'system' ? currentLang : language] || TRANSLATIONS.en;
 
-        const t = translations[language === 'system' ? currentLang : language];
-
-        const entityMaps = [
-            { key: 'entity', value: 'software', text: 'iOS' },
-            { key: 'entity', value: 'macSoftware', text: 'macOS' },
-        ];
-        const countryMaps = [
-            { key: 'country', value: 'cn', text: 'CN' },
-            { key: 'country', value: 'us', text: 'US' },
-            { key: 'country', value: 'jp', text: 'JP' },
-            { key: 'country', value: 'kr', text: 'KR' },
-            { key: 'country', value: 'tw', text: 'TW' },
-            { key: 'country', value: 'hk', text: 'HK' },
-            { key: 'country', value: 'sg', text: 'SG' },
-            { key: 'country', value: 'gb', text: 'GB' },
-            { key: 'country', value: 'fr', text: 'FR' },
-            { key: 'country', value: 'de', text: 'DE' },
-            { key: 'country', value: 'it', text: 'IT' },
-            { key: 'country', value: 'es', text: 'ES' },
-            { key: 'country', value: 'ru', text: 'RU' },
-            { key: 'country', value: 'in', text: 'IN' },
-            { key: 'country', value: 'th', text: 'TH' },
-        ];
-        const cutMaps = [
-            { key: 'cut', value: '1', text: t.cutCorner },
-            { key: 'cut', value: '0', text: t.originalImage },
-        ];
-        const formatMaps = [
-            { key: 'format', value: 'jpeg', text: 'JPEG' },
-            { key: 'format', value: 'png', text: 'PNG' },
-            { key: 'format', value: 'webp', text: 'WebP' },
-        ];
-        const resolutionMaps = [
-            { key: 'resolution', value: '256', text: '256px' },
-            { key: 'resolution', value: '512', text: '512px' },
-            { key: 'resolution', value: '1024', text: '1024px' },
-        ];
-        const limitMaps = [
-            { key: 'limit', value: '6', text: '6' },
-            { key: 'limit', value: '18', text: '18' },
-            { key: 'limit', value: '30', text: '30' },
-            { key: 'limit', value: '48', text: '48' },
-        ];
+        const cutMaps = getCutMaps(t);
+        const entityMaps = ENTITY_MAPS;
+        const countryMaps = COUNTRY_MAPS;
+        const formatMaps = FORMAT_MAPS;
+        const resolutionMaps = RESOLUTION_MAPS;
+        const limitMaps = LIMIT_MAPS;
 
         return (
             <div className="app">
@@ -289,7 +345,7 @@ class App extends Component {
                                         className="search-input"
                                         placeholder={t.searchPlaceholder}
                                         value={name}
-                                        onChange={(e) => this.setState({ name: e.target.value.trim() })}
+                                        onChange={(e) => this.setState({ name: e.target.value })}
                                         onKeyDown={(e) => e.key === 'Enter' ? this.search() : null}
                                     />
                                     <button className="search-button" onClick={this.search}>
@@ -308,14 +364,14 @@ class App extends Component {
                             <div className={`filters ${isFiltersVisible ? 'show' : ''}`}>
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.queryType}</div>
-                                    <div className="filter-options">
+                                    <div className="filter-options" onMouseDown={this.handleFilterOptionsMouseDown}>
                                         {entityMaps.map(option => (
                                             <React.Fragment key={option.value}>
                                                 <input
                                                     type="checkbox"
                                                     id={`${option.key}-${option.value}`}
                                                     checked={this.state[option.key] === option.value}
-                                                    onChange={() => this.setState({ [option.key]: option.value })}
+                                                    onChange={() => this.setState({ [option.key]: option.value }, this.search)}
                                                 />
                                                 <label htmlFor={`${option.key}-${option.value}`}>
                                                     {option.text}
@@ -327,14 +383,14 @@ class App extends Component {
 
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.queryCount}</div>
-                                    <div className="filter-options">
+                                    <div className="filter-options" onMouseDown={this.handleFilterOptionsMouseDown}>
                                         {limitMaps.map(option => (
                                             <React.Fragment key={option.value}>
                                                 <input
                                                     type="checkbox"
                                                     id={`${option.key}-${option.value}`}
                                                     checked={this.state[option.key] === option.value}
-                                                    onChange={() => this.setState({ [option.key]: option.value })}
+                                                    onChange={() => this.setState({ [option.key]: option.value }, this.search)}
                                                 />
                                                 <label htmlFor={`${option.key}-${option.value}`}>
                                                     {option.text}
@@ -346,14 +402,14 @@ class App extends Component {
 
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.region}</div>
-                                    <div className="filter-options">
+                                    <div className="filter-options" onMouseDown={this.handleFilterOptionsMouseDown}>
                                         {countryMaps.map(option => (
                                             <React.Fragment key={option.value}>
                                                 <input
                                                     type="checkbox"
                                                     id={`${option.key}-${option.value}`}
                                                     checked={this.state[option.key] === option.value}
-                                                    onChange={() => this.setState({ [option.key]: option.value })}
+                                                    onChange={() => this.setState({ [option.key]: option.value }, this.search)}
                                                 />
                                                 <label htmlFor={`${option.key}-${option.value}`}>
                                                     {option.text}
@@ -365,7 +421,7 @@ class App extends Component {
 
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.cutMode}</div>
-                                    <div className="filter-options">
+                                    <div className="filter-options" onMouseDown={this.handleFilterOptionsMouseDown}>
                                         {cutMaps.map(option => (
                                             <React.Fragment key={option.value}>
                                                 <input
@@ -384,7 +440,7 @@ class App extends Component {
 
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.imageFormat}</div>
-                                    <div className="filter-options">
+                                    <div className="filter-options" onMouseDown={this.handleFilterOptionsMouseDown}>
                                         {formatMaps.map(option => (
                                             <React.Fragment key={option.value}>
                                                 <input
@@ -403,7 +459,7 @@ class App extends Component {
 
                                 <div className="filter-group">
                                     <div className="filter-group-title">{t.imageSize}</div>
-                                    <div className="filter-options">
+                                    <div className="filter-options" onMouseDown={this.handleFilterOptionsMouseDown}>
                                         {resolutionMaps.map(option => (
                                             <React.Fragment key={option.value}>
                                                 <input

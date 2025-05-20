@@ -218,8 +218,8 @@ header {
   position: absolute;
   right: 1rem;
   top: 50%;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-right: 2px solid var(--text-secondary);
   border-bottom: 2px solid var(--text-secondary);
   transform: translateY(-50%) rotate(45deg);
@@ -250,7 +250,7 @@ header {
 /* 筛选组样式 */
 .filter-group {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-color);
@@ -272,10 +272,22 @@ header {
 
 .filter-options {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   flex: 1;
-  padding-top: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.filter-options::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-options.grabbing {
+  cursor: grabbing;
 }
 
 .filter-group input[type="checkbox"] {
@@ -364,9 +376,8 @@ footer {
 
 /* 响应式布局 */
 @media (max-width: 1200px) {
-  .header-content {
-    position: relative;
-    padding-top: 45px;
+  header {
+    padding: 2rem 1rem 1rem;
   }
 
   .header-controls {
@@ -375,23 +386,7 @@ footer {
     right: 0;
     transform-origin: top right;
     background: transparent;
-    padding: 0;
     z-index: 101;
-    gap: 0.5rem;
-  }
-
-  .theme-btn {
-    background: transparent;
-  }
-}
-
-@media (max-width: 768px) {
-  header {
-    padding: 1rem;
-  }
-
-  .header-controls {
-    display: flex;
     gap: 0.5rem;
     transform: scale(0.72);
   }
