@@ -4,14 +4,19 @@ export default function drawOutline(data, cut, resolution, format) {
         const canvas = document.createElement('canvas');
         canvas.width = resolution;
         canvas.height = resolution;
-        const iOSDefaultUrl = '/512x512bb.jpg';
-        const macDefaultUrl = '/512x512bb.png';
-        const newUrl = `/${resolution}x${resolution}bb.webp`;
-        const newArtWorkUrl = artworkUrl512.replace(iOSDefaultUrl, newUrl).replace(macDefaultUrl, newUrl);
         const ctx = canvas.getContext('2d');
         const appIcon = new Image();
         appIcon.setAttribute('crossOrigin', 'anonymous');
-        appIcon.src = newArtWorkUrl;
+        
+        // Handle Google Play icons differently - they don't have size variants
+        if (kind === 'googlePlaySoftware') {
+            appIcon.src = artworkUrl512;
+        } else {
+            const iOSDefaultUrl = '/512x512bb.jpg';
+            const macDefaultUrl = '/512x512bb.png';
+            const newUrl = `/${resolution}x${resolution}bb.webp`;
+            appIcon.src = artworkUrl512.replace(iOSDefaultUrl, newUrl).replace(macDefaultUrl, newUrl);
+        }
         appIcon.onload = function () {
             ctx.drawImage(appIcon, 0, 0);
             ctx.globalCompositeOperation = 'destination-in';
@@ -19,7 +24,10 @@ export default function drawOutline(data, cut, resolution, format) {
                 const outline = new Path2D(outlinePath);
                 ctx.fill(outline);
             }
-            if (kind.startsWith('software')) {
+            if (kind === 'googlePlaySoftware') {
+                // Google Play icons are already in the correct format, just draw as-is
+                drawOutline(`m${resolution}, m${resolution}`);
+            } else if (kind.startsWith('software')) {
                 if (cut === '1') {
                     if (resolution === '256') {
                         drawOutline('m256,175.92c0,3.06,0,6.12-.02,9.17-.01,2.58-.04,5.16-.11,7.73-.07,5.64-.57,11.26-1.48,16.82-.95,5.57-2.73,10.96-5.27,15.99-5.16,10.12-13.38,18.35-23.5,23.51-5.04,2.54-10.42,4.32-15.98,5.27-5.57.92-11.19,1.42-16.82,1.48-2.58.07-5.15.1-7.73.12-3.06.02-6.12.02-9.17.02h-95.85c-3.06,0-6.11,0-9.17-.01-2.58,0-5.15-.04-7.73-.11-5.64-.07-11.26-.57-16.82-1.49-5.56-.95-10.95-2.73-15.98-5.27-10.12-5.16-18.35-13.38-23.5-23.5-2.55-5.04-4.32-10.43-5.27-16-.92-5.56-1.41-11.18-1.48-16.81-.07-2.58-.1-5.16-.11-7.73-.02-3.06-.02-6.11-.02-9.17v-95.84c0-3.06,0-6.12.02-9.19.01-2.57.05-5.15.11-7.72.07-5.63.57-11.25,1.48-16.81.95-5.57,2.73-10.96,5.27-16,5.16-10.12,13.38-18.35,23.5-23.51,5.04-2.54,10.42-4.32,15.97-5.27,5.57-.92,11.19-1.41,16.82-1.48,2.58-.07,5.16-.1,7.73-.11,3.06-.02,6.12-.02,9.17-.02h95.85c3.06,0,6.12,0,9.18.02,2.58.01,5.15.05,7.73.11,5.63.07,11.26.57,16.82,1.48,5.57.95,10.95,2.73,15.99,5.27,10.12,5.16,18.35,13.38,23.51,23.51,2.54,5.04,4.32,10.43,5.27,15.99.92,5.56,1.41,11.18,1.48,16.82.07,2.58.1,5.16.11,7.73.02,3.06.02,6.12.02,9.17v95.85h0Z');

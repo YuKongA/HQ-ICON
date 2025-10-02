@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Result from './result.jsx';
 import { searchApp } from './searchApp.jsx';
+import { searchGooglePlay } from './searchGooglePlay.jsx';
 import { getUrlArgs } from './url.jsx';
 import './app.css';
 
 const TRANSLATIONS = {
     zh: {
         title: 'HQ ICON',
-        description: '从 App Store 获取高清应用图标',
+        description: '从 App Store 和 Google Play 获取高清应用图标',
         searchPlaceholder: '搜索应用...',
         filterToggle: '筛选条件',
         queryType: '查询类型',
@@ -25,7 +26,7 @@ const TRANSLATIONS = {
     },
     en: {
         title: 'HQ ICON',
-        description: 'High-quality App Store icon downloader',
+        description: 'High-quality app icon downloader from App Store and Google Play',
         searchPlaceholder: 'Search for apps...',
         filterToggle: 'Filter Options',
         queryType: 'Platform',
@@ -46,6 +47,7 @@ const TRANSLATIONS = {
 const ENTITY_MAPS = [
     { key: 'entity', value: 'software', text: 'iOS' },
     { key: 'entity', value: 'macSoftware', text: 'macOS' },
+    { key: 'entity', value: 'googlePlay', text: 'Android' },
 ];
 const COUNTRY_MAPS = [
     { key: 'country', value: 'cn', text: 'CN' },
@@ -219,7 +221,12 @@ class App extends Component {
         }
 
         try {
-            const data = await searchApp(trimmedName, country, entity, limit);
+            let data;
+            if (entity === 'googlePlay') {
+                data = await searchGooglePlay(trimmedName, country, limit);
+            } else {
+                data = await searchApp(trimmedName, country, entity, limit);
+            }
             const limitedResults = data.results.slice(0, parseInt(limit, 10));
             this.setState({ results: limitedResults });
 
