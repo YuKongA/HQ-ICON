@@ -40,7 +40,7 @@
 
 /* 头部样式 */
 header {
-  padding: 2rem;
+  padding: 3rem 3rem 1rem;
   background: var(--header-bg);
   box-shadow: 0 1px 2px var(--shadow-color);
   position: sticky;
@@ -250,6 +250,8 @@ header {
 /* 筛选组样式 */
 .filter-group {
   display: flex;
+  font-size: 0.9rem;
+  font-weight: 400;
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 12px;
@@ -296,7 +298,7 @@ header {
 
 .filter-group label {
   font-size: 0.85rem;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
   user-select: none;
@@ -433,6 +435,28 @@ footer {
 
   .search {
     width: 100%;
+  }
+
+  .search-input {
+    font-size: 0.85rem;
+  }
+
+  .filters-toggle {
+    font-size: 0.85rem;
+  }
+
+  .filter-group {
+    font-size: 0.85rem;
+  }
+
+  .filter-group label {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+  }
+
+  .filter-group-title {
+    min-width: 60px;
+    width: 60px;
   }
 
   .footer-content {
