@@ -45,7 +45,8 @@ const TRANSLATIONS = {
 
 const ENTITY_MAPS = [
     { key: 'entity', value: 'software', text: 'iOS' },
-    { key: 'entity', value: 'macSoftware', text: 'macOS' },
+    { key: 'entity', value: 'iPadSoftware', text: 'iPadOS' },
+    { key: 'entity', value: 'desktopSoftware', text: 'macOS' },
 ];
 const COUNTRY_MAPS = [
     { key: 'country', value: 'cn', text: 'CN' },
