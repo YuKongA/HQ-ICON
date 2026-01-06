@@ -14,7 +14,8 @@ const TRANSLATIONS = {
         queryCount: '查询数量',
         region: '国家地区',
         cutMode: '裁切方式',
-        cutCorner: '裁切圆角',
+        cutCorner: '普通圆角',
+        officialCorner: '官方圆角',
         originalImage: '原始图像',
         imageFormat: '图像格式',
         imageSize: '图像尺寸',
@@ -32,7 +33,8 @@ const TRANSLATIONS = {
         queryCount: 'Results',
         region: 'Region',
         cutMode: 'Style',
-        cutCorner: 'Rounded',
+        cutCorner: 'Normal Rounded',
+        officialCorner: 'Official',
         originalImage: 'Original',
         imageFormat: 'Format',
         imageSize: 'Size',
@@ -64,6 +66,15 @@ const COUNTRY_MAPS = [
     { key: 'country', value: 'ru', text: 'RU' },
     { key: 'country', value: 'in', text: 'IN' },
     { key: 'country', value: 'th', text: 'TH' },
+    { key: 'country', value: 'id', text: 'ID' },
+    { key: 'country', value: 'ph', text: 'PH' },
+    { key: 'country', value: 'vn', text: 'VN' },
+    { key: 'country', value: 'tr', text: 'TR' },
+    { key: 'country', value: 'ca', text: 'CA' },
+    { key: 'country', value: 'au', text: 'AU' },
+    { key: 'country', value: 'br', text: 'BR' },
+    { key: 'country', value: 'mx', text: 'MX' },
+    { key: 'country', value: 'my', text: 'MY' },
 ];
 const FORMAT_MAPS = [
     { key: 'format', value: 'jpeg', text: 'JPEG' },
@@ -83,6 +94,7 @@ const LIMIT_MAPS = [
 ];
 
 const getCutMaps = (t) => [
+    { key: 'cut', value: '2', text: t.officialCorner },
     { key: 'cut', value: '1', text: t.cutCorner },
     { key: 'cut', value: '0', text: t.originalImage },
 ];
@@ -101,7 +113,7 @@ class App extends Component {
             country: getUrlArgs('country') || 'cn',
             entity: getUrlArgs('entity') || 'software',
             limit: getUrlArgs('limit') || '18',
-            cut: getUrlArgs('cut') || '1',
+            cut: getUrlArgs('cut') || '2',
             resolution: getUrlArgs('resolution') || '512',
             format: getUrlArgs('format') || 'png',
             results: [],

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import drawOutline from './drawOutline.jsx';
 import './result.css';
@@ -60,7 +60,7 @@ Result.propTypes = {
     data: PropTypes.object.isRequired,
     cut: PropTypes.string.isRequired,
     resolution: PropTypes.string.isRequired,
-    format: PropTypes.string.isRequired
+    format: PropTypes.string.isRequired,
 };
 
 export default Result;

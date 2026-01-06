@@ -6,7 +6,8 @@ export default function drawOutline(data, cut, resolution, format) {
         canvas.height = resolution;
         const iOSDefaultUrl = '/512x512bb.jpg';
         const macDefaultUrl = '/512x512bb.png';
-        const newUrl = `/${resolution}x${resolution}bb.webp`;
+        const suffix = cut === '2' ? 'ia' : 'bb';
+        const newUrl = `/${resolution}x${resolution}${suffix}-100.webp`;
         const newArtWorkUrl = artworkUrl512.replace(iOSDefaultUrl, newUrl).replace(macDefaultUrl, newUrl);
         const ctx = canvas.getContext('2d');
         const appIcon = new Image();
@@ -14,7 +15,7 @@ export default function drawOutline(data, cut, resolution, format) {
         appIcon.src = newArtWorkUrl;
         appIcon.onload = function () {
             ctx.drawImage(appIcon, 0, 0);
-            ctx.globalCompositeOperation = 'destination-in';
+            ctx.globalCompositeOperation = cut === '1' ? 'destination-in' : 'source-over';
             const drawOutline = (outlinePath) => {
                 const outline = new Path2D(outlinePath);
                 ctx.fill(outline);
@@ -29,7 +30,7 @@ export default function drawOutline(data, cut, resolution, format) {
                         drawOutline('m1024,703.67c0,12.24,0,24.46-.08,36.68-.06,10.3-.18,20.62-.44,30.9-.28,22.54-2.26,45.02-5.92,67.26-3.8,22.26-10.9,43.82-21.08,63.96-20.62,40.48-53.52,73.4-94,94.02-20.14,10.16-41.68,17.26-63.92,21.06-22.26,3.68-44.74,5.66-67.28,5.92-10.3.26-20.6.42-30.9.46-12.24.06-24.46.06-36.68.06h-383.39c-12.22,0-24.44,0-36.68-.06-10.3-.04-20.6-.18-30.9-.44-22.54-.28-45.02-2.28-67.28-5.94-22.24-3.78-43.78-10.9-63.92-21.06-40.48-20.62-73.38-53.52-94-93.98-10.18-20.16-17.28-41.72-21.08-63.98-3.66-22.22-5.64-44.7-5.92-67.24-.26-10.3-.4-20.62-.44-30.92-.08-12.24-.08-24.44-.08-36.68v-383.35c0-12.24,0-24.48.08-36.74.04-10.28.18-20.6.44-30.88.28-22.52,2.26-45,5.92-67.24,3.8-22.26,10.9-43.82,21.08-63.98,20.62-40.48,53.52-73.4,94-94.02,20.14-10.16,41.66-17.26,63.88-21.06,22.26-3.66,44.74-5.64,67.28-5.92,10.3-.26,20.62-.4,30.9-.44,12.24-.06,24.48-.06,36.68-.06h383.39c12.24,0,24.48,0,36.7.06,10.3.04,20.6.18,30.9.44,22.52.28,45.02,2.28,67.26,5.92,22.26,3.8,43.78,10.9,63.94,21.06,40.48,20.62,73.4,53.52,94.02,94.02,10.16,20.16,17.26,41.72,21.06,63.96,3.66,22.24,5.64,44.72,5.92,67.26.26,10.3.4,20.62.44,30.9.08,12.24.08,24.46.08,36.68v383.39l.02-.02Z');
                     }
                 }
-            } else {
+            } else if (cut === '1') {
                 drawOutline(`m${resolution}, m${resolution}`);
             }
             resolve(canvas.toDataURL(`image/${format}`));
