@@ -113,7 +113,7 @@ class App extends Component {
             country: getUrlArgs('country') || 'cn',
             entity: getUrlArgs('entity') || 'software',
             limit: getUrlArgs('limit') || '18',
-            cut: getUrlArgs('cut') || '2',
+            cut: (getUrlArgs('entity') === 'desktopSoftware') ? '0' : (getUrlArgs('cut') || '2'),
             resolution: getUrlArgs('resolution') || '512',
             format: getUrlArgs('format') || 'png',
             results: [],
@@ -384,7 +384,15 @@ class App extends Component {
                                                     type="checkbox"
                                                     id={`${option.key}-${option.value}`}
                                                     checked={this.state[option.key] === option.value}
-                                                    onChange={() => this.setState({ [option.key]: option.value }, this.search)}
+                                                    onChange={() => {
+                                                        const newState = { [option.key]: option.value };
+                                                        if (option.value === 'desktopSoftware') {
+                                                            newState.cut = '0';
+                                                        } else if (this.state.entity === 'desktopSoftware') {
+                                                            newState.cut = this.state.mobileCut;
+                                                        }
+                                                        this.setState(newState, this.search);
+                                                    }}
                                                 />
                                                 <label htmlFor={`${option.key}-${option.value}`}>
                                                     {option.text}
@@ -441,7 +449,14 @@ class App extends Component {
                                                     type="checkbox"
                                                     id={`${option.key}-${option.value}`}
                                                     checked={this.state[option.key] === option.value}
-                                                    onChange={() => this.setState({ [option.key]: option.value })}
+                                                    onChange={() => {
+                                                        const newState = { [option.key]: option.value };
+                                                        if (this.state.entity !== 'desktopSoftware') {
+                                                            newState.mobileCut = option.value;
+                                                        }
+                                                        this.setState(newState);
+                                                    }}
+                                                    disabled={this.state.entity === 'desktopSoftware' && option.value !== '0'}
                                                 />
                                                 <label htmlFor={`${option.key}-${option.value}`}>
                                                     {option.text}

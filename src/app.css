@@ -317,6 +317,13 @@ header {
   color: var(--bg-color);
 }
 
+.filter-group input[type="checkbox"]:disabled+label {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--filter-bg);
+  color: var(--text-secondary);
+}
+
 /* 结果区域 */
 .results {
   padding: 2rem 1rem;
