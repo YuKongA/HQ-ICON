@@ -9,15 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.13.2",
+    "axios": "^1.13.5",
     "prop-types": "^15.8.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.2",
+    "@vitejs/plugin-react": "^5.1.4",
     "vite": "npm:rolldown-vite@latest"
   }
 }
