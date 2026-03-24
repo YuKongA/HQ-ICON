@@ -24,9 +24,9 @@ GitHub Page：https://yukonga.github.io/HQ-ICON/
 
 ### 注意：
 
-由于目前 Apple 限制了 Android UA，因此 Android 设备浏览器访问查询只会返回一个名称完全符合的查询结果。
+由于 Apple 有时会对 Android UA 进行限制，Android 设备查询时可能只会返回一个名称完全匹配的结果。
 
-所以 Android 用户请使用隔壁仓库的 [App](https://github.com/YuKongA/HQ-ICON_Compose/releases) 版本。
+如遇此问题，可以尝试使用我隔壁仓库的 [App](https://github.com/YuKongA/HQ-ICON_Compose/releases) 版本绕过这个限制。
 
 ### 致谢：
 
