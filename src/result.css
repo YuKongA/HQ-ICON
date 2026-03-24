@@ -2,7 +2,7 @@
   background: var(--header-bg);
   border-radius: 12px;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 3px var(--shadow-color);
 }
 
@@ -60,29 +60,87 @@
   border-radius: 4px;
 }
 
-a.icon-info {
+a.result {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-a.icon-info:hover {
-  color: var(--text-color);
-}
-
-.icon-null {
-  width: 80%;
-  height: 80%;
-  top: 10%;
-  left: 10%;
+.icon-failed {
   position: absolute;
-  background-color: var(--bg-diff-color);
-  mask: url(/placeholder.svg) center/contain no-repeat;
-  -webkit-mask: url(/placeholder.svg) center/contain no-repeat;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--text-secondary);
+  opacity: 0.4;
 }
 
-@media (max-width: 480px) {
-  .result {
-    margin: 0;
+.icon-failed::after {
+  content: '\1F622';
+}
+
+/* 骨架屏 */
+.skeleton {
+  pointer-events: none;
+}
+
+.skeleton .icon-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, var(--filter-hover) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-line {
+  background: var(--filter-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, var(--filter-hover) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-title {
+  height: 1rem;
+  width: 75%;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-artist {
+  height: 0.85rem;
+  width: 55%;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-platform {
+  height: 0.75rem;
+  width: 40%;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
   }
 }
