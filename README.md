@@ -10,23 +10,19 @@ GitHub Page：https://yukonga.github.io/HQ-ICON/
 
 完整例子: https://icon.yukonga.top/?name=Google&country=us&entity=software&limit=18&cut=2&resolution=1024&format=webp
 
+搜索框也可直接粘贴 App Store 应用链接或 App ID。链接中的地区会用于查询，例如 `https://apps.apple.com/sg/app/siri/id6758482875` 会查询新加坡区的 Siri；只输入 `6758482875` 时使用当前选择的地区。页面 URL 中显式指定的 `country` 参数优先于 App Store 链接地区。部分应用不在所有地区上架，在其他地区搜索不到时请切换地区或粘贴对应地区的链接。
+
 ### 参数：
 
 |  url 传参  |                     对应作用                     |  默认值  |
 | :--------: | :----------------------------------------------: | :------: |
-|    name    |                     应用名称                     |    无    |
+|    name    |             应用名称、链接或 App ID              |    无    |
 |  country   |            国家/地区 (cn,us,jp,kr...)            |    cn    |
 |   entity   | 搜索对象 (software/iPadSoftware/desktopSoftware) | software |
 |   limit    |              搜索数量限额 (1..200)               |    18    |
-|    cut     |                是否裁切圆角 (0/1)                |    1     |
+|    cut     |         图标样式 (0 原图/1 标准/2 官方)          |    2     |
 | resolution |              分辨率 (256/512/1024)               |   512    |
 |   format   |             图片格式 (jpeg/png/webp)             |   png    |
-
-### 注意：
-
-由于 Apple 有时会对 Android UA 进行限制，Android 设备查询时可能只会返回一个名称完全匹配的结果。
-
-如遇此问题，可以尝试使用我隔壁仓库的 [App](https://github.com/YuKongA/HQ-ICON_Compose/releases) 版本绕过这个限制。
 
 ### 致谢：
 

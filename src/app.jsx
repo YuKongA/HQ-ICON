@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Result from "./result.jsx";
 import FilterGroup from "./FilterGroup.jsx";
-import { searchApp } from "./searchApp.jsx";
+import { lookupApp, parseAppStoreInput, searchApp } from "./searchApp.js";
 import { getUrlArgs } from "./url.jsx";
 import "./app.css";
 
@@ -14,7 +14,7 @@ const TRANSLATIONS = {
   zh: {
     title: "HQ ICON",
     description: "从App Store获取高清应用图标",
-    searchPlaceholder: "搜索应用...",
+    searchPlaceholder: "应用名称、App Store 链接或 ID",
     filterToggle: "筛选条件",
     queryType: "查询类型",
     queryCount: "查询数量",
@@ -30,14 +30,14 @@ const TRANSLATIONS = {
     themeDark: "深色",
     themeSystem: "系统",
     noResults: "无查询结果",
-    proxyWarning: "如果开启了代理，请关闭后重试，反之亦然",
+    proxyWarning: "可尝试切换国家/地区，或检查网络及代理设置",
     androidWarning: "检测到当前是Android设备，可使用",
     androidAppLink: "App版本",
   },
   en: {
     title: "HQ ICON",
     description: "High-quality App Store icon downloader",
-    searchPlaceholder: "Search for apps...",
+    searchPlaceholder: "App name, App Store link or ID",
     filterToggle: "Filter Options",
     queryType: "Platform",
     queryCount: "Results",
@@ -53,7 +53,7 @@ const TRANSLATIONS = {
     themeDark: "Dark",
     themeSystem: "Auto",
     noResults: "No results",
-    proxyWarning: "If you have a proxy enabled, please disable it and try again, or vice versa",
+    proxyWarning: "Try another region or check your network and proxy settings",
     androidWarning: "Android device detected. You can use the",
     androidAppLink: "App version",
   },
@@ -120,10 +120,12 @@ class App extends Component {
     const theme = localStorage.getItem("theme") || "system";
     const language = localStorage.getItem("language") || "system";
     const currentLang = language === "system" ? systemLang : language;
+    const initialName = getUrlArgs("name") || "";
 
     this.state = {
-      name: getUrlArgs("name") || "",
-      country: getUrlArgs("country") || "cn",
+      name: initialName,
+      country:
+        getUrlArgs("country") || parseAppStoreInput(initialName)?.country || "cn",
       entity: getUrlArgs("entity") || "software",
       limit: getUrlArgs("limit") || "18",
       cut:
@@ -138,7 +140,7 @@ class App extends Component {
           : getUrlArgs("cut") || "2",
       results: [],
       isSearching: false,
-      hasSearched: !!getUrlArgs("name"),
+      hasSearched: !!initialName,
       isFiltersVisible: false,
       theme,
       language,
@@ -247,9 +249,12 @@ class App extends Component {
       return;
     }
 
+    const lookup = parseAppStoreInput(trimmedName);
     this.setState({ isSearching: true });
     try {
-      const data = await searchApp(trimmedName, country, entity, limit);
+      const data = lookup
+        ? await lookupApp(lookup.id, country)
+        : await searchApp(trimmedName, country, entity, limit);
       const limitedResults = data.results.slice(0, parseInt(limit, 10));
       this.setState({
         results: limitedResults,
@@ -407,7 +412,14 @@ class App extends Component {
                     className="search-input"
                     placeholder={t.searchPlaceholder}
                     value={name}
-                    onChange={(e) => this.setState({ name: e.target.value })}
+                    onChange={(e) => {
+                      const nextName = e.target.value;
+                      const linkCountry = parseAppStoreInput(nextName)?.country;
+                      this.setState({
+                        name: nextName,
+                        ...(linkCountry ? { country: linkCountry } : {}),
+                      });
+                    }}
                     onKeyDown={(e) =>
                       e.key === "Enter" ? this.search() : null
                     }
